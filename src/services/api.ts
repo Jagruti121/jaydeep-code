@@ -125,7 +125,14 @@ export class ApiService {
     });
   }
 
-  public static async resetPassword(payload: { identifier: string; newPassword: string }) {
+  public static async requestResetOtp(payload: { identifier: string }) {
+    return this.request('/auth/request-reset-otp', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+  }
+
+  public static async resetPassword(payload: { identifier: string; otp?: string; newPassword: string }) {
     return this.request('/auth/reset-password', {
       method: 'POST',
       body: JSON.stringify(payload),
@@ -269,6 +276,13 @@ export class ApiService {
 
   public static async getLiveSessionData(sessionId: string) {
     return this.request(`/faculty/sessions/${sessionId}/live`);
+  }
+
+  public static async overrideAttendance(sessionId: string, studentId: string, status: 'PRESENT' | 'ABSENT', reason?: string) {
+    return this.request(`/faculty/sessions/${sessionId}/override`, {
+      method: 'POST',
+      body: JSON.stringify({ studentId, status, reason }),
+    });
   }
 
   public static async getFacultyStudents(classId?: string, subjectId?: string) {

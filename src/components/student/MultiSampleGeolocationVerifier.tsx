@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { GoogleLocationMap } from '../common/GoogleLocationMap.js';
+import { GeofenceVisualizer } from '../common/GeofenceVisualizer.js';
 import {
   MapPin,
   RefreshCw,
@@ -13,6 +14,8 @@ import {
   ChevronUp,
   Info,
   Lock,
+  Smartphone,
+  Navigation,
 } from 'lucide-react';
 
 export interface LocationReading {
@@ -39,15 +42,15 @@ export type GeolocationStatus =
   | 'INSECURE_CONTEXT';
 
 interface MultiSampleGeolocationVerifierProps {
-  collegeLat: number;
-  collegeLng: number;
+  collegeLat: number; // Teacher's Live Latitude
+  collegeLng: number; // Teacher's Live Longitude
   radiusMeters: number;
   collegeName?: string;
   onLocationVerified: (reading: LocationReading, distanceMeters: number) => void;
   onLocationInvalid: (errorMsg: string) => void;
 }
 
-// High-precision Haversine Distance Calculation
+// High-precision Haversine Distance Calculation (Distance between Student Phone & Teacher Phone)
 export function calculateHaversineDistance(
   lat1: number,
   lon1: number,
@@ -69,7 +72,7 @@ export const MultiSampleGeolocationVerifier: React.FC<MultiSampleGeolocationVeri
   collegeLat,
   collegeLng,
   radiusMeters,
-  collegeName = 'Thakur Shyamnarayan Degree College (TSDC)',
+  collegeName = 'Faculty Live Beacon (TSDC Classroom)',
   onLocationVerified,
   onLocationInvalid,
 }) => {
@@ -78,11 +81,13 @@ export const MultiSampleGeolocationVerifier: React.FC<MultiSampleGeolocationVeri
   const [bestReading, setBestReading] = useState<LocationReading | null>(null);
   const [currentDistance, setCurrentDistance] = useState<number | null>(null);
   const [progressPercent, setProgressPercent] = useState<number>(0);
-  const [statusMessage, setStatusMessage] = useState<string>('Initializing GPS sensor...');
+  const [statusMessage, setStatusMessage] = useState<string>('Connecting to phone GPS sensors...');
   const [showDiagnostics, setShowDiagnostics] = useState<boolean>(false);
   const [isSecureContext, setIsSecureContext] = useState<boolean>(true);
+  const [browserPermissionState, setBrowserPermissionState] = useState<string>('unknown');
+  const [viewType, setViewType] = useState<'radar' | 'map'>('radar');
 
-  const MAX_SAMPLES = 5;
+  const MAX_SAMPLES = 4;
   const sampleTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   // Clear sampling on unmount
@@ -92,16 +97,38 @@ export const MultiSampleGeolocationVerifier: React.FC<MultiSampleGeolocationVeri
     };
   }, []);
 
+  // Monitor Permissions API if available
+  useEffect(() => {
+    if (typeof navigator !== 'undefined' && 'permissions' in navigator) {
+      try {
+        navigator.permissions
+          .query({ name: 'geolocation' as PermissionName })
+          .then((perm) => {
+            setBrowserPermissionState(perm.state);
+            perm.onchange = () => {
+              setBrowserPermissionState(perm.state);
+              if (perm.state === 'granted') {
+                startMultiSampleAcquisition();
+              }
+            };
+          })
+          .catch(() => {});
+      } catch (e) {
+        // Permissions query not supported
+      }
+    }
+  }, []);
+
   // Check secure HTTPS context
   useEffect(() => {
     if (typeof window !== 'undefined' && window.isSecureContext === false && window.location.hostname !== 'localhost') {
       setIsSecureContext(false);
       setStatus('INSECURE_CONTEXT');
-      setStatusMessage('Geolocation requires a secure HTTPS connection. Camera and GPS access are restricted.');
+      setStatusMessage('Live Geolocation requires a secure HTTPS connection. Location access is restricted.');
     }
   }, []);
 
-  // Start multi-sample GPS acquisition (Fast hybrid positioning)
+  // Start real-time multi-sample GPS acquisition against Teacher's phone
   const startMultiSampleAcquisition = (useFallbackAccuracy = false) => {
     if (sampleTimerRef.current) clearTimeout(sampleTimerRef.current);
     
@@ -110,11 +137,12 @@ export const MultiSampleGeolocationVerifier: React.FC<MultiSampleGeolocationVeri
     setCurrentDistance(null);
     setProgressPercent(10);
     setStatus('ACQUIRING');
-    setStatusMessage('Acquiring live location signal from your device...');
+    setStatusMessage('Acquiring real-time GPS coordinates from your device...');
 
     if (!navigator.geolocation) {
-      // Try IP Geolocation fallback if HTML5 Geolocation API is completely missing
-      fetchIPLocationFallback();
+      setStatus('UNAVAILABLE');
+      setStatusMessage('Geolocation API is not supported on this device/browser.');
+      onLocationInvalid('Geolocation API not supported.');
       return;
     }
 
@@ -131,10 +159,10 @@ export const MultiSampleGeolocationVerifier: React.FC<MultiSampleGeolocationVeri
       const sampleNum = currentSampleIndex;
 
       setStatus('IMPROVING');
-      setStatusMessage(`Detecting device position (Sample ${sampleNum}/${MAX_SAMPLES})...`);
+      setStatusMessage(`Locking satellite signal & measuring distance to Teacher (Sample ${sampleNum}/${MAX_SAMPLES})...`);
       setProgressPercent(Math.round((sampleNum / MAX_SAMPLES) * 100));
 
-      // Fast responsive acquisition
+      // Query hardware GPS sensor
       navigator.geolocation.getCurrentPosition(
         (pos) => {
           const reading: LocationReading = {
@@ -152,7 +180,7 @@ export const MultiSampleGeolocationVerifier: React.FC<MultiSampleGeolocationVeri
           collectedSamples.push(reading);
           setSamples([...collectedSamples]);
 
-          // Update live preview & Blue Dot immediately on map
+          // Calculate real-time distance from teacher's phone
           const dist = calculateHaversineDistance(
             reading.latitude,
             reading.longitude,
@@ -163,33 +191,42 @@ export const MultiSampleGeolocationVerifier: React.FC<MultiSampleGeolocationVeri
           setBestReading(reading);
 
           if (sampleNum < MAX_SAMPLES) {
-            sampleTimerRef.current = setTimeout(fetchNextSample, 300);
+            sampleTimerRef.current = setTimeout(fetchNextSample, 250);
           } else {
             evaluateSampleResults(collectedSamples);
           }
         },
         (err) => {
-          console.warn('GPS acquisition error:', err);
+          console.warn('GPS sensor acquisition warning:', err);
           if (err && err.code === 1) {
-            setStatus('PERMISSION_DENIED');
-            setStatusMessage('Location permission is blocked. Please allow location access in your browser or device settings.');
-            onLocationInvalid('Location permission denied by user.');
+            // Permission denied in browser / iframe
+            if (!useFallbackAccuracy) {
+              // Try standard accuracy once before throwing permission error
+              startMultiSampleAcquisition(true);
+            } else {
+              setStatus('PERMISSION_DENIED');
+              setStatusMessage(
+                'Location access is blocked in your browser. Please tap the 🔒 icon in the address bar to allow location.'
+              );
+              onLocationInvalid('Location permission denied by browser.');
+            }
           } else {
             if (collectedSamples.length > 0) {
               evaluateSampleResults(collectedSamples);
             } else if (!useFallbackAccuracy) {
-              console.log('High accuracy timed out, retrying with standard network accuracy...');
+              console.log('High-accuracy GPS timed out, retrying with standard sensor accuracy...');
               startMultiSampleAcquisition(true);
             } else {
-              // Attempt IP / Network Geolocation as device detection fallback
-              fetchIPLocationFallback();
+              setStatus('UNAVAILABLE');
+              setStatusMessage('Unable to acquire stable GPS position. Ensure phone Location/GPS is turned ON.');
+              onLocationInvalid('GPS signal unavailable.');
             }
           }
         },
         {
           enableHighAccuracy: !useFallbackAccuracy,
-          timeout: useFallbackAccuracy ? 6000 : 4000,
-          maximumAge: 10000,
+          timeout: useFallbackAccuracy ? 7000 : 4000,
+          maximumAge: 3000,
         }
       );
     };
@@ -197,56 +234,40 @@ export const MultiSampleGeolocationVerifier: React.FC<MultiSampleGeolocationVeri
     fetchNextSample();
   };
 
-  const fetchIPLocationFallback = async () => {
-    setStatus('IMPROVING');
-    setStatusMessage('Detecting device position via Network / Wi-Fi IP positioning...');
-    try {
-      const res = await fetch('https://ipapi.co/json/');
-      if (res.ok) {
-        const data = await res.json();
-        if (data.latitude && data.longitude) {
-          const reading: LocationReading = {
-            latitude: Number(data.latitude),
-            longitude: Number(data.longitude),
-            accuracy: 40,
-            altitude: null,
-            altitudeAccuracy: null,
-            heading: null,
-            speed: null,
-            timestamp: Date.now(),
-            sampleNumber: 1,
-          };
-          setSamples([reading]);
-          setBestReading(reading);
-          const dist = calculateHaversineDistance(
-            reading.latitude,
-            reading.longitude,
-            collegeLat,
-            collegeLng
-          );
-          setCurrentDistance(dist);
-          evaluateSampleResults([reading]);
-          return;
-        }
+  // Re-request permission prompt explicitly from user action
+  const requestPermissionPrompt = () => {
+    setStatus('ACQUIRING');
+    setStatusMessage('Requesting GPS sensor access from browser...');
+
+    navigator.geolocation.getCurrentPosition(
+      () => {
+        startMultiSampleAcquisition();
+      },
+      (err) => {
+        console.warn('Manual permission prompt error:', err);
+        setStatus('PERMISSION_DENIED');
+        setStatusMessage(
+          'Location blocked. Please click the 🔒 Lock icon near the address bar, set Location to "Allow", and retry.'
+        );
+      },
+      {
+        enableHighAccuracy: false,
+        timeout: 10000,
+        maximumAge: 0,
       }
-    } catch (e) {
-      console.warn('Network location fallback error:', e);
-    }
-    setStatus('UNAVAILABLE');
-    setStatusMessage('Unable to detect device location. Ensure device location / GPS is enabled and refresh.');
-    onLocationInvalid('Unable to detect device location.');
+    );
   };
 
-  // Evaluate the collected GPS samples to pick the most accurate and determine inside/outside status
+  // Evaluate the collected GPS samples against Teacher's phone
   const evaluateSampleResults = (allSamples: LocationReading[]) => {
     if (allSamples.length === 0) {
       setStatus('UNAVAILABLE');
-      setStatusMessage('Unable to acquire a stable GPS reading.');
+      setStatusMessage('No GPS sensor readings collected from device.');
       onLocationInvalid('No GPS samples collected.');
       return;
     }
 
-    // Pick the sample with the lowest accuracy error margin (highest precision)
+    // Pick highest precision reading (lowest uncertainty margin)
     const best = [...allSamples].sort((a, b) => a.accuracy - b.accuracy)[0];
     setBestReading(best);
 
@@ -258,41 +279,72 @@ export const MultiSampleGeolocationVerifier: React.FC<MultiSampleGeolocationVeri
     );
     setCurrentDistance(distance);
 
-    // Check GPS uncertainty vs radius:
-    // If reading accuracy is very poor (e.g. > 150m), flag as too low
-    if (best.accuracy > 120 && distance <= radiusMeters) {
+    // Security Check: GPS Uncertainty threshold (±35m max)
+    if (best.accuracy > 35) {
       setStatus('ACCURACY_TOO_LOW');
-      setStatusMessage(`GPS signal uncertainty (±${Math.round(best.accuracy)}m) is too wide for decided ${radiusMeters}m radius. Please move to an open window or click calibrate.`);
-      onLocationInvalid(`GPS accuracy is ±${Math.round(best.accuracy)}m (insufficient for verification).`);
+      setStatusMessage(`GPS signal uncertainty (±${Math.round(best.accuracy)}m) is too wide. Please ensure phone location is set to High Accuracy mode and retry.`);
+      onLocationInvalid(`GPS accuracy is ±${Math.round(best.accuracy)}m (must be within ±35m).`);
       return;
     }
 
+    // Strict Teacher Proximity Check
     if (distance <= radiusMeters) {
       setStatus('INSIDE_RADIUS');
-      setStatusMessage(`Presence Authenticated! Measured distance is ${distance}m (strictly within the decided ${radiusMeters}m radius boundary).`);
+      setStatusMessage(`Physical Presence Authenticated: Inside the allowed ${radiusMeters}m radius.`);
       onLocationVerified(best, distance);
     } else {
       setStatus('OUTSIDE_RADIUS');
-      setStatusMessage(`Location Blocked: Measured distance is ${distance}m from TSDC classroom center, which exceeds the decided ${radiusMeters}m radius boundary.`);
-      onLocationInvalid(`Outside attendance boundary (${distance}m away vs decided ${radiusMeters}m radius).`);
+      setStatusMessage(`Outside allowed proximity boundary (${radiusMeters}m allowed). Move closer to class.`);
+      onLocationInvalid(`Outside allowed proximity boundary.`);
     }
   };
 
   useEffect(() => {
     startMultiSampleAcquisition();
-  }, [radiusMeters]);
+  }, [radiusMeters, collegeLat, collegeLng]);
 
   return (
     <div className="space-y-4">
-      {/* Small Radius Administrative Notice if 1m-3m configured */}
-      {radiusMeters <= 3 && (
-        <div className="p-3 bg-amber-50 border border-amber-300 rounded-xl text-xs text-amber-900 flex items-start gap-2.5">
-          <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-          <div>
-            <span className="font-bold block">Strict Radius Warning ({radiusMeters}m):</span>
-            <span>
-              Normal smartphone GPS accuracy typically ranges from 4m to 15m indoors. Ensure you are in a clear area with strong GPS satellite reception.
-            </span>
+      {/* Permission Blocked Guidance Card */}
+      {status === 'PERMISSION_DENIED' && (
+        <div className="p-4 bg-amber-50 border-2 border-amber-300 rounded-2xl text-xs space-y-3 animate-in fade-in shadow-xs">
+          <div className="flex items-start gap-2.5">
+            <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+            <div>
+              <h4 className="font-bold text-amber-950 text-sm">
+                Browser Location Permission Required
+              </h4>
+              <p className="text-amber-800 mt-0.5 leading-relaxed">
+                To prevent proxy attendance, your phone must share real-time GPS coordinates to verify physical proximity with the Teacher's mobile device.
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-white/90 p-3 rounded-xl border border-amber-200 text-stone-700 space-y-1.5 text-[11px]">
+            <div className="font-bold text-stone-900">How to Enable:</div>
+            <div className="flex items-start gap-2">
+              <span className="font-bold text-amber-700">1.</span>
+              <span>Click the <strong>Lock / Tune icon (🔒)</strong> in your browser's address bar.</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="font-bold text-amber-700">2.</span>
+              <span>Set <strong>Location → Allow</strong>.</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <span className="font-bold text-amber-700">3.</span>
+              <span>Click <strong>"Re-Scan GPS Location"</strong> below.</span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 pt-1">
+            <button
+              type="button"
+              onClick={requestPermissionPrompt}
+              className="px-4 py-2 bg-stone-900 hover:bg-black text-white font-bold rounded-xl text-xs flex items-center gap-1.5 cursor-pointer shadow-xs transition-colors"
+            >
+              <RefreshCw className="w-3.5 h-3.5" />
+              <span>Re-Scan GPS Location</span>
+            </button>
           </div>
         </div>
       )}
@@ -302,11 +354,11 @@ export const MultiSampleGeolocationVerifier: React.FC<MultiSampleGeolocationVeri
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
           <div>
             <div className="flex items-center gap-1.5 text-stone-500 text-[10px] font-bold uppercase tracking-wider">
-              <Compass className="w-3.5 h-3.5 text-amber-600" />
-              <span>Multi-Sample Geolocation Verification</span>
+              <Smartphone className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Teacher Mobile Proximity Geofence</span>
             </div>
             <h3 className="text-sm font-bold text-stone-900 mt-0.5">
-              {collegeName}
+              Teacher's Live Anchor: <span className="font-mono text-xs text-stone-600">{collegeLat.toFixed(6)}, {collegeLng.toFixed(6)}</span>
             </h3>
           </div>
 
@@ -315,22 +367,22 @@ export const MultiSampleGeolocationVerifier: React.FC<MultiSampleGeolocationVeri
             {status === 'ACQUIRING' || status === 'IMPROVING' ? (
               <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-amber-50 text-amber-800 border border-amber-200 rounded-full text-xs font-semibold animate-pulse">
                 <RefreshCw className="w-3.5 h-3.5 animate-spin text-amber-600" />
-                <span>{status === 'IMPROVING' ? 'Refining GPS Signal...' : 'Acquiring GPS...'}</span>
+                <span>{status === 'IMPROVING' ? 'Locking GPS...' : 'Acquiring GPS...'}</span>
               </div>
             ) : status === 'INSIDE_RADIUS' ? (
               <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-100 text-emerald-900 border border-emerald-300 rounded-full text-xs font-extrabold shadow-xs">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                <span>✓ INSIDE ATTENDANCE RADIUS</span>
+                <span>✓ WITHIN TEACHER'S RADIUS</span>
               </div>
             ) : status === 'OUTSIDE_RADIUS' ? (
               <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-rose-100 text-rose-900 border border-rose-300 rounded-full text-xs font-extrabold shadow-xs">
                 <AlertTriangle className="w-4 h-4 text-rose-600" />
-                <span>✕ OUT OF RADIUS — BLOCKED</span>
+                <span>✕ OUT OF TEACHER'S RADIUS</span>
               </div>
             ) : status === 'ACCURACY_TOO_LOW' ? (
               <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-100 text-amber-900 border border-amber-300 rounded-full text-xs font-bold">
                 <Radio className="w-4 h-4 text-amber-600 animate-pulse" />
-                <span>ACCURACY TOO LOW</span>
+                <span>GPS ACCURACY TOO LOW</span>
               </div>
             ) : (
               <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-rose-100 text-rose-900 border border-rose-300 rounded-full text-xs font-bold">
@@ -345,7 +397,7 @@ export const MultiSampleGeolocationVerifier: React.FC<MultiSampleGeolocationVeri
         {(status === 'ACQUIRING' || status === 'IMPROVING') && (
           <div className="space-y-1">
             <div className="flex justify-between text-[11px] text-stone-500 font-medium">
-              <span>Collecting high-accuracy sensor samples...</span>
+              <span>Collecting live hardware GPS samples...</span>
               <span className="font-mono">{samples.length}/{MAX_SAMPLES}</span>
             </div>
             <div className="w-full bg-stone-200 h-1.5 rounded-full overflow-hidden">
@@ -359,9 +411,10 @@ export const MultiSampleGeolocationVerifier: React.FC<MultiSampleGeolocationVeri
 
         {/* Status Message Text */}
         <div className="space-y-2">
-          <p className={`text-xs ${
-            status === 'INSIDE_RADIUS' ? 'text-emerald-800 font-medium' :
-            status === 'OUTSIDE_RADIUS' ? 'text-rose-800 font-medium' :
+          <p className={`text-xs font-medium ${
+            status === 'INSIDE_RADIUS' ? 'text-emerald-800' :
+            status === 'OUTSIDE_RADIUS' ? 'text-rose-800' :
+            status === 'PERMISSION_DENIED' ? 'text-amber-800' :
             'text-stone-600'
           }`}>
             {statusMessage}
@@ -371,7 +424,7 @@ export const MultiSampleGeolocationVerifier: React.FC<MultiSampleGeolocationVeri
         {/* Numerical Metrics Matrix */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-stone-200/80 text-xs">
           <div className="p-2.5 bg-white rounded-xl border border-stone-200 shadow-xs">
-            <span className="text-[10px] text-stone-500 font-semibold uppercase block">Distance to TSDC</span>
+            <span className="text-[10px] text-stone-500 font-semibold uppercase block">Distance to Teacher</span>
             <span className={`text-base font-extrabold font-mono tabular-nums ${
               status === 'INSIDE_RADIUS' ? 'text-emerald-700' :
               status === 'OUTSIDE_RADIUS' ? 'text-rose-700' : 'text-stone-900'
@@ -381,7 +434,7 @@ export const MultiSampleGeolocationVerifier: React.FC<MultiSampleGeolocationVeri
           </div>
 
           <div className="p-2.5 bg-white rounded-xl border border-stone-200 shadow-xs">
-            <span className="text-[10px] text-stone-500 font-semibold uppercase block">Allowed Radius</span>
+            <span className="text-[10px] text-stone-500 font-semibold uppercase block">Allowed Proximity</span>
             <span className="text-base font-extrabold font-mono tabular-nums text-stone-900">
               {radiusMeters} m
             </span>
@@ -390,53 +443,98 @@ export const MultiSampleGeolocationVerifier: React.FC<MultiSampleGeolocationVeri
           <div className="p-2.5 bg-white rounded-xl border border-stone-200 shadow-xs">
             <span className="text-[10px] text-stone-500 font-semibold uppercase block">GPS Accuracy</span>
             <span className={`text-base font-extrabold font-mono tabular-nums ${
-              bestReading && bestReading.accuracy <= 10 ? 'text-emerald-700' : 'text-stone-700'
+              bestReading && bestReading.accuracy <= 15 ? 'text-emerald-700' : 'text-stone-700'
             }`}>
               {bestReading ? `±${Math.round(bestReading.accuracy)} m` : 'Calculating...'}
             </span>
           </div>
 
           <div className="p-2.5 bg-white rounded-xl border border-stone-200 shadow-xs">
-            <span className="text-[10px] text-stone-500 font-semibold uppercase block">Sample Quality</span>
+            <span className="text-[10px] text-stone-500 font-semibold uppercase block">Sensor Quality</span>
             <span className="text-xs font-bold text-stone-800 truncate block mt-0.5">
-              {samples.length > 0 ? `${samples.length} readings verified` : 'Warming up GPS'}
+              {samples.length > 0 ? `${samples.length} live fixes verified` : 'Acquiring GPS'}
             </span>
           </div>
         </div>
       </div>
 
-      {/* Google Maps Campus Visualization */}
-      <GoogleLocationMap
-        collegeLat={collegeLat}
-        collegeLng={collegeLng}
-        collegeName={collegeName}
-        studentLat={bestReading?.latitude}
-        studentLng={bestReading?.longitude}
-        radiusMeters={radiusMeters}
-        isInside={status === 'INSIDE_RADIUS' ? true : status === 'OUTSIDE_RADIUS' ? false : null}
-        accuracy={bestReading?.accuracy}
-        className="h-64 sm:h-72"
-      />
+      {/* Geofence Radar vs Google Map View Switcher */}
+      <div className="flex items-center justify-between gap-2 pt-1">
+        <div className="text-xs font-bold text-stone-700 flex items-center gap-1.5">
+          <Navigation className="w-3.5 h-3.5 text-emerald-600" />
+          <span>Proximity Radar Visualizer</span>
+        </div>
+
+        <div className="bg-stone-200/80 p-0.5 rounded-xl flex items-center gap-0.5 text-xs">
+          <button
+            type="button"
+            onClick={() => setViewType('radar')}
+            className={`px-3 py-1 rounded-lg font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+              viewType === 'radar'
+                ? 'bg-stone-900 text-white shadow-xs'
+                : 'text-stone-600 hover:text-stone-900'
+            }`}
+          >
+            <Radio className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Live Radar Sonar</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setViewType('map')}
+            className={`px-3 py-1 rounded-lg font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+              viewType === 'map'
+                ? 'bg-stone-900 text-white shadow-xs'
+                : 'text-stone-600 hover:text-stone-900'
+            }`}
+          >
+            <MapPin className="w-3.5 h-3.5 text-blue-400" />
+            <span>Satellite Map</span>
+          </button>
+        </div>
+      </div>
+
+      {viewType === 'radar' ? (
+        <GeofenceVisualizer
+          teacherLat={collegeLat}
+          teacherLng={collegeLng}
+          studentLat={bestReading?.latitude}
+          studentLng={bestReading?.longitude}
+          radiusMeters={radiusMeters}
+          distanceMeters={currentDistance}
+          teacherName={collegeName}
+          studentLabel="Your Phone"
+        />
+      ) : (
+        <GoogleLocationMap
+          collegeLat={collegeLat}
+          collegeLng={collegeLng}
+          collegeName="Teacher's Live Mobile Location"
+          studentLat={bestReading?.latitude}
+          studentLng={bestReading?.longitude}
+          radiusMeters={radiusMeters}
+          isInside={status === 'INSIDE_RADIUS' ? true : status === 'OUTSIDE_RADIUS' ? false : null}
+          accuracy={bestReading?.accuracy}
+          className="h-64 sm:h-72"
+        />
+      )}
 
       {/* Action Toolbar */}
       <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
-        <div className="flex flex-wrap items-center gap-2">
-          <button
-            type="button"
-            onClick={() => startMultiSampleAcquisition()}
-            className="px-3.5 py-2 text-xs font-bold text-stone-700 bg-white hover:bg-stone-50 border border-stone-300 rounded-xl shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
-          >
-            <RefreshCw className={`w-3.5 h-3.5 ${status === 'ACQUIRING' || status === 'IMPROVING' ? 'animate-spin' : ''}`} />
-            <span>Retry Location (Fresh GPS)</span>
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={() => startMultiSampleAcquisition()}
+          className="px-3.5 py-2 text-xs font-bold text-stone-700 bg-white hover:bg-stone-50 border border-stone-300 rounded-xl shadow-xs transition-colors flex items-center gap-1.5 cursor-pointer"
+        >
+          <RefreshCw className={`w-3.5 h-3.5 ${status === 'ACQUIRING' || status === 'IMPROVING' ? 'animate-spin' : ''}`} />
+          <span>Refresh GPS Reading (Live Sensor)</span>
+        </button>
 
         <button
           type="button"
           onClick={() => setShowDiagnostics(!showDiagnostics)}
           className="px-3 py-1.5 text-xs text-stone-600 hover:text-stone-900 flex items-center gap-1 font-semibold cursor-pointer"
         >
-          <span>{showDiagnostics ? 'Hide Diagnostics' : 'Show Location Diagnostics'}</span>
+          <span>{showDiagnostics ? 'Hide Diagnostics' : 'Show Sensor Telemetry'}</span>
           {showDiagnostics ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
         </button>
       </div>
@@ -446,7 +544,7 @@ export const MultiSampleGeolocationVerifier: React.FC<MultiSampleGeolocationVeri
         <div className="p-4 bg-white rounded-xl border border-stone-200 text-xs space-y-2 animate-in fade-in">
           <div className="flex items-center gap-1.5 font-bold text-stone-900 pb-1.5 border-b border-stone-100">
             <Info className="w-4 h-4 text-emerald-600" />
-            <span>GPS Sensor Signals & Audit Telemetry</span>
+            <span>Real-Time Sensor Signals & Distance Telemetry</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1.5 font-mono text-[11px] text-stone-600">
@@ -455,34 +553,24 @@ export const MultiSampleGeolocationVerifier: React.FC<MultiSampleGeolocationVeri
               <span className="font-bold text-emerald-700">Supported & Active</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-stone-400">High Accuracy Mode:</span>
-              <span className="font-bold text-emerald-700">enableHighAccuracy: true</span>
+              <span className="text-stone-400">Browser Permission:</span>
+              <span className="font-bold text-stone-900">{browserPermissionState}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-stone-400">Cache Policy:</span>
-              <span className="font-bold text-stone-900">maximumAge: 0 (Fresh Fix)</span>
+              <span className="text-stone-400">Student Phone Coordinates:</span>
+              <span>{bestReading ? `${bestReading.latitude.toFixed(6)}, ${bestReading.longitude.toFixed(6)}` : '—'}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-stone-400">Secure Context (HTTPS):</span>
-              <span className={`font-bold ${isSecureContext ? 'text-emerald-700' : 'text-rose-700'}`}>
-                {isSecureContext ? '✓ Verified (Secure)' : '✕ Insecure Context'}
-              </span>
+              <span className="text-stone-400">Teacher Phone Anchor:</span>
+              <span>{collegeLat.toFixed(6)}, {collegeLng.toFixed(6)}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-stone-400">Student Coordinates:</span>
-              <span>{bestReading ? `${bestReading.latitude.toFixed(7)}, ${bestReading.longitude.toFixed(7)}` : '—'}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-stone-400">TSDC Official Coordinates:</span>
-              <span>{collegeLat.toFixed(7)}, {collegeLng.toFixed(7)}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-stone-400">Calculated Haversine Distance:</span>
+              <span className="text-stone-400">Haversine Distance:</span>
               <span className="font-bold text-stone-900">{currentDistance !== null ? `${currentDistance} meters` : '—'}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-stone-400">Sample Timestamp:</span>
-              <span>{bestReading ? new Date(bestReading.timestamp).toLocaleTimeString() : '—'}</span>
+              <span className="text-stone-400">Allowed Perimeter:</span>
+              <span className="font-bold text-emerald-700">{radiusMeters} meters</span>
             </div>
           </div>
         </div>

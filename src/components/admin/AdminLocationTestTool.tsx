@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { GoogleLocationMap } from '../common/GoogleLocationMap.js';
+import { GeofenceVisualizer } from '../common/GeofenceVisualizer.js';
 import { calculateHaversineDistance } from '../student/MultiSampleGeolocationVerifier.js';
 import {
   Compass,
@@ -11,6 +12,7 @@ import {
   Navigation,
   Info,
   Building,
+  Radio,
 } from 'lucide-react';
 
 interface AdminLocationTestToolProps {
@@ -30,9 +32,15 @@ export const AdminLocationTestTool: React.FC<AdminLocationTestToolProps> = ({
   const [testLng, setTestLng] = useState<number>(collegeLng + 0.000015);
   const [radius, setRadius] = useState<number>(defaultRadius);
   const [testAccuracy, setTestAccuracy] = useState<number>(5);
+  const [adminViewMode, setAdminViewMode] = useState<'radar' | 'map'>('radar');
 
   const calculatedDistance = calculateHaversineDistance(testLat, testLng, collegeLat, collegeLng);
   const isInside = calculatedDistance <= radius;
+
+  const handleRadarPositionChange = (newLat: number, newLng: number) => {
+    setTestLat(newLat);
+    setTestLng(newLng);
+  };
 
   // Preset location quick test scenarios
   const setPreset = (type: 'center' | 'inside_edge' | 'outside_near' | 'borivali_5km' | 'device_gps') => {
@@ -220,18 +228,63 @@ export const AdminLocationTestTool: React.FC<AdminLocationTestToolProps> = ({
         </div>
       </div>
 
-      {/* Google Map Visualization */}
-      <GoogleLocationMap
-        collegeLat={collegeLat}
-        collegeLng={collegeLng}
-        collegeName={collegeName}
-        studentLat={testLat}
-        studentLng={testLng}
-        radiusMeters={radius}
-        isInside={isInside}
-        accuracy={testAccuracy}
-        className="h-80 sm:h-96"
-      />
+      {/* Visualizer Mode Switcher */}
+      <div className="flex items-center justify-between gap-2 pt-2 border-t border-stone-100">
+        <span className="text-xs font-bold text-stone-700">Geofence Boundary Map & Radar:</span>
+        <div className="bg-stone-100 p-0.5 rounded-xl flex items-center gap-0.5 text-xs">
+          <button
+            type="button"
+            onClick={() => setAdminViewMode('radar')}
+            className={`px-3 py-1 rounded-lg font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+              adminViewMode === 'radar'
+                ? 'bg-stone-900 text-white shadow-xs'
+                : 'text-stone-600 hover:text-stone-900'
+            }`}
+          >
+            <Radio className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Interactive Sonar Radar</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setAdminViewMode('map')}
+            className={`px-3 py-1 rounded-lg font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+              adminViewMode === 'map'
+                ? 'bg-stone-900 text-white shadow-xs'
+                : 'text-stone-600 hover:text-stone-900'
+            }`}
+          >
+            <MapPin className="w-3.5 h-3.5 text-blue-400" />
+            <span>Google Satellite Map</span>
+          </button>
+        </div>
+      </div>
+
+      {adminViewMode === 'radar' ? (
+        <GeofenceVisualizer
+          teacherLat={collegeLat}
+          teacherLng={collegeLng}
+          studentLat={testLat}
+          studentLng={testLng}
+          radiusMeters={radius}
+          distanceMeters={calculatedDistance}
+          teacherName={collegeName}
+          studentLabel="Simulated Student"
+          interactive={true}
+          onPositionChange={handleRadarPositionChange}
+        />
+      ) : (
+        <GoogleLocationMap
+          collegeLat={collegeLat}
+          collegeLng={collegeLng}
+          collegeName={collegeName}
+          studentLat={testLat}
+          studentLng={testLng}
+          radiusMeters={radius}
+          isInside={isInside}
+          accuracy={testAccuracy}
+          className="h-80 sm:h-96"
+        />
+      )}
     </div>
   );
 };

@@ -214,7 +214,7 @@ export const StudentAttendanceModal: React.FC<StudentAttendanceModalProps> = ({
                 collegeLat={session.centerLatitude}
                 collegeLng={session.centerLongitude}
                 radiusMeters={session.radiusMeters}
-                collegeName="Thakur Shyamnarayan Degree College (TSDC)"
+                collegeName={`Prof. ${session.facultyName || 'Teacher'} Live Mobile Beacon`}
                 onLocationVerified={handleLocationVerified}
                 onLocationInvalid={handleLocationInvalid}
               />
@@ -294,7 +294,7 @@ export const StudentAttendanceModal: React.FC<StudentAttendanceModalProps> = ({
                     All Physical Presence Checks Authenticated
                   </h4>
                   <p className="text-xs text-emerald-800">
-                    GPS location verified {verifiedDistance}m from TSDC center (Allowed radius: {session.radiusMeters}m) and live identity snapshot confirmed.
+                    GPS location verified {verifiedDistance}m from Teacher's mobile device (Allowed radius: {session.radiusMeters}m) and live identity snapshot confirmed.
                   </p>
                 </div>
               </div>
@@ -322,7 +322,7 @@ export const StudentAttendanceModal: React.FC<StudentAttendanceModalProps> = ({
                     <span className="font-semibold text-stone-900">{session.lectureTopic}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-stone-500">Distance to TSDC Center:</span>
+                    <span className="text-stone-500">Distance to Teacher's Phone:</span>
                     <span className="font-mono font-bold text-emerald-700">{verifiedDistance} meters (Inside {session.radiusMeters}m)</span>
                   </div>
                   <div className="flex justify-between">
