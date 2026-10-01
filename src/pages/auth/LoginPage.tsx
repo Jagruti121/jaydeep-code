@@ -24,7 +24,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
   // OTP Login Verification Step
   const [step, setStep] = useState<'credentials' | 'otp'>('credentials');
   const [otpInput, setOtpInput] = useState<string>('');
-  const [receivedOtp, setReceivedOtp] = useState<string | null>(null);
   const [otpNotice, setOtpNotice] = useState<string | null>(null);
   const [otpEmail, setOtpEmail] = useState<string>('');
 
@@ -55,10 +54,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
     if (res.success) {
       if (res.requiresOtp) {
         setOtpEmail(res.email || email.trim().toLowerCase());
-        setReceivedOtp(res.otp || null);
         setOtpNotice(res.message || `A 6-digit OTP security code was sent to ${res.email}.`);
         setStep('otp');
-        setOtpInput(res.otp || ''); // auto-populate for frictionless testing while also allowing manual edit/paste
+        setOtpInput(''); // Start empty for clean login
       } else if (res.token) {
         login({
           token: res.token,
@@ -107,10 +105,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
     const res = await ApiService.resendOtp({ email: otpEmail, purpose: 'login' });
     setIsLoading(false);
     if (res.success) {
-      if (res.otp) {
-        setReceivedOtp(res.otp);
-        setOtpInput(res.otp);
-      }
       setSuccessNotice(`Fresh OTP sent to ${otpEmail}. Please check your Gmail Inbox.`);
     } else {
       setError(res.message || 'Failed to resend OTP. Please try again.');
@@ -150,24 +144,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToRegister }) => {
                 <p className="text-[11px] text-emerald-800">
                   A 6-digit verification code has been dispatched to <strong>{otpEmail}</strong>.
                 </p>
-                {receivedOtp && (
-                  <div className="mt-2 pt-2 border-t border-emerald-200/60 flex items-center justify-between">
-                    <div>
-                      <span className="text-[10px] text-emerald-700 block">Gmail / Inbox Security Code:</span>
-                      <span className="font-mono text-base font-bold tracking-widest text-emerald-900">{receivedOtp}</span>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setOtpInput(receivedOtp);
-                        setError(null);
-                      }}
-                      className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-[11px] rounded-lg transition-colors cursor-pointer"
-                    >
-                      Paste / Auto-Fill OTP
-                    </button>
-                  </div>
-                )}
               </div>
 
               {error && (

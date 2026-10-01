@@ -54,6 +54,7 @@ export const AdminDashboard: React.FC = () => {
   const [timetable, setTimetable] = useState<any[]>([]);
   const [classrooms, setClassrooms] = useState<any[]>([]);
   const [auditLogs, setAuditLogs] = useState<any[]>([]);
+  const [auditFilter, setAuditFilter] = useState<string>('all');
   const [facultyList, setFacultyList] = useState<any[]>([]);
   const [registrationActivity, setRegistrationActivity] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -100,7 +101,7 @@ export const AdminDashboard: React.FC = () => {
   const [settingsForm, setSettingsForm] = useState({
     college_name: '',
     official_latitude: 19.213805,
-    official_longitude: 72.864869,
+    official_longitude: 72.864810,
     default_radius: 10,
     min_radius: 1,
     max_radius: 50,
@@ -937,7 +938,7 @@ export const AdminDashboard: React.FC = () => {
                             <span className="text-[10px] text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">No subjects assigned</span>
                           ) : (
                             fac.assignedSubjects.map((sub: any, idx: number) => (
-                              <span key={idx} className="text-[10px] font-medium bg-stone-100 text-stone-800 px-2 py-0.5 rounded border border-stone-200">
+                              <span key={`${sub.subjectId || sub.subjectCode || 'sub'}-${idx}`} className="text-[10px] font-medium bg-stone-100 text-stone-800 px-2 py-0.5 rounded border border-stone-200">
                                 {sub.subjectName} ({sub.className})
                               </span>
                             ))
@@ -1020,7 +1021,7 @@ export const AdminDashboard: React.FC = () => {
               </thead>
               <tbody className="divide-y divide-stone-100">
                 {registrationActivity.map((reg, idx) => (
-                  <tr key={idx} className="hover:bg-stone-50/60">
+                  <tr key={`${reg.id || reg.email || 'reg'}-${idx}`} className="hover:bg-stone-50/60">
                     <td className="py-2.5 px-3">
                       <div className="font-bold text-stone-900">{reg.name}</div>
                       <div className="text-[11px] text-stone-500">{reg.email}</div>
@@ -1172,25 +1173,50 @@ export const AdminDashboard: React.FC = () => {
         </div>
       )}
 
-      {/* TAB 4: SECURITY AUDIT LOGS */}
+      {/* TAB 4: SECURITY & ACTIVITY AUDIT LOGS */}
       {currentTab === 'audit_logs' && (
         <div className="bg-white p-6 rounded-2xl border border-stone-200 shadow-xs space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-stone-100">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-stone-100">
             <div>
               <div className="flex items-center gap-2">
                 <ShieldAlert className="w-5 h-5 text-rose-600" />
-                <h2 className="text-base font-bold text-stone-900">Security & Authorization Audit Logs</h2>
+                <h2 className="text-base font-bold text-stone-900">Comprehensive System & Security Audit Logs</h2>
               </div>
               <p className="text-xs text-stone-500">
-                Tracks failed join attempts, rate limiting events, out-of-radius attempts, and unauthorized faculty actions.
+                Tracks manual attendance overrides, subject additions, student management actions, and security events capturing actor, action type, and timestamp.
               </p>
             </div>
-            <button
-              onClick={() => fetchTabData('audit_logs')}
-              className="px-3 py-1.5 bg-stone-100 hover:bg-stone-200 rounded-lg text-xs font-semibold cursor-pointer"
-            >
-              Refresh
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => fetchTabData('audit_logs')}
+                className="px-3 py-1.5 bg-stone-100 hover:bg-stone-200 rounded-lg text-xs font-semibold cursor-pointer"
+              >
+                Refresh
+              </button>
+            </div>
+          </div>
+
+          {/* Audit Category Filter Tabs */}
+          <div className="flex flex-wrap items-center gap-1.5 pb-2">
+            {[
+              { id: 'all', label: 'All Audit Logs' },
+              { id: 'attendance', label: 'Manual Attendance Overrides' },
+              { id: 'subjects', label: 'Subject Additions & Edits' },
+              { id: 'students', label: 'Student Management Actions' },
+              { id: 'security', label: 'Security & Warnings' },
+            ].map((f) => (
+              <button
+                key={f.id}
+                onClick={() => setAuditFilter(f.id)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
+                  auditFilter === f.id
+                    ? 'bg-stone-900 text-white shadow-xs'
+                    : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
+                }`}
+              >
+                {f.label}
+              </button>
+            ))}
           </div>
 
           <div className="overflow-x-auto">
@@ -1198,36 +1224,63 @@ export const AdminDashboard: React.FC = () => {
               <thead>
                 <tr className="bg-stone-50 text-stone-600 font-semibold border-b border-stone-200">
                   <th className="py-2.5 px-3">Timestamp</th>
-                  <th className="py-2.5 px-3">Action Event</th>
+                  <th className="py-2.5 px-3">Action Type (Event)</th>
                   <th className="py-2.5 px-3">Actor</th>
                   <th className="py-2.5 px-3">Role</th>
-                  <th className="py-2.5 px-3">Details</th>
+                  <th className="py-2.5 px-3">Details / Target</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-stone-100 font-mono text-[11px]">
-                {auditLogs.map((log) => {
-                  const isWarning =
-                    log.action.includes('FAILED') ||
-                    log.action.includes('UNAUTHORIZED') ||
-                    log.action.includes('OUT_OF_RADIUS') ||
-                    log.action.includes('RATE_LIMIT');
+                {auditLogs
+                  .filter((log) => {
+                    if (auditFilter === 'all') return true;
+                    if (auditFilter === 'attendance') {
+                      return log.action.includes('ATTENDANCE_OVERRIDE') || log.action.includes('MANUAL_ATTENDANCE');
+                    }
+                    if (auditFilter === 'subjects') {
+                      return log.action.includes('SUBJECT');
+                    }
+                    if (auditFilter === 'students') {
+                      return log.action.includes('STUDENT');
+                    }
+                    if (auditFilter === 'security') {
+                      return log.action.includes('FAILED') || log.action.includes('UNAUTHORIZED') || log.action.includes('OUT_OF_RADIUS') || log.action.includes('RATE_LIMIT') || log.action.includes('PROXY');
+                    }
+                    return true;
+                  })
+                  .map((log, idx) => {
+                    const isWarning =
+                      log.action.includes('FAILED') ||
+                      log.action.includes('UNAUTHORIZED') ||
+                      log.action.includes('OUT_OF_RADIUS') ||
+                      log.action.includes('RATE_LIMIT') ||
+                      log.action.includes('PROXY');
 
-                  return (
-                    <tr key={log.id} className={isWarning ? 'bg-rose-50/30' : 'hover:bg-stone-50/70'}>
-                      <td className="py-2.5 px-3 text-stone-500">{new Date(log.timestamp).toLocaleString()}</td>
-                      <td className="py-2.5 px-3 font-bold">
-                        <span className={isWarning ? 'text-rose-700' : 'text-stone-800'}>
-                          {log.action}
-                        </span>
-                      </td>
-                      <td className="py-2.5 px-3 text-stone-700">{log.actorName || log.actor_id}</td>
-                      <td className="py-2.5 px-3 uppercase text-[10px] text-stone-500">{log.actor_role}</td>
-                      <td className="py-2.5 px-3 text-stone-600 max-w-xs truncate">
-                        {log.details ? JSON.stringify(log.details) : '—'}
-                      </td>
-                    </tr>
-                  );
-                })}
+                    const isOverrideOrAdd =
+                      log.action.includes('OVERRIDE') ||
+                      log.action.includes('CREATED') ||
+                      log.action.includes('SUCCESS');
+
+                    return (
+                      <tr key={`${log.id || 'log'}-${idx}`} className={isWarning ? 'bg-rose-50/30' : 'hover:bg-stone-50/70'}>
+                        <td className="py-2.5 px-3 text-stone-500 whitespace-nowrap">{new Date(log.timestamp).toLocaleString()}</td>
+                        <td className="py-2.5 px-3 font-bold">
+                          <span className={`px-2 py-0.5 rounded text-[10px] uppercase font-semibold ${
+                            isWarning ? 'bg-rose-100 text-rose-800' :
+                            isOverrideOrAdd ? 'bg-emerald-100 text-emerald-800' :
+                            'bg-stone-100 text-stone-800'
+                          }`}>
+                            {log.action}
+                          </span>
+                        </td>
+                        <td className="py-2.5 px-3 text-stone-700 font-semibold">{log.actorName || log.actor_id || 'System'}</td>
+                        <td className="py-2.5 px-3 uppercase text-[10px] text-stone-500 font-bold">{log.actor_role || 'SYSTEM'}</td>
+                        <td className="py-2.5 px-3 text-stone-600 max-w-xs truncate">
+                          {log.details ? JSON.stringify(log.details) : '—'}
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>
@@ -1374,9 +1427,9 @@ export const AdminDashboard: React.FC = () => {
       {/* TAB 5B: LOCATION DIAGNOSTIC & TEST TOOL */}
       {currentTab === 'test_location' && (
         <AdminLocationTestTool
-          collegeLat={settingsForm.official_latitude || 19.2138050}
-          collegeLng={settingsForm.official_longitude || 72.8648690}
-          collegeName={settingsForm.college_name || 'Thakur Shyamnarayan Degree College (TSDC)'}
+          collegeLat={settingsForm.official_latitude || 19.213805}
+          collegeLng={settingsForm.official_longitude || 72.864810}
+          collegeName={settingsForm.college_name || 'Thakur Shyamnarayan Degree College (TSDC), Kandivali (East)'}
           defaultRadius={settingsForm.default_radius || 10}
         />
       )}
@@ -1656,8 +1709,8 @@ export const AdminDashboard: React.FC = () => {
             {otpLogs.length === 0 ? (
               <p className="py-12 text-center text-xs text-stone-500">No OTP emails dispatched yet in this runtime session.</p>
             ) : (
-              otpLogs.map((log) => (
-                <div key={log.id} className="p-4 bg-stone-50 rounded-xl border border-stone-200 space-y-2 text-xs">
+              otpLogs.map((log, idx) => (
+                <div key={`${log.id || 'otp'}-${idx}`} className="p-4 bg-stone-50 rounded-xl border border-stone-200 space-y-2 text-xs">
                   <div className="flex justify-between items-start">
                     <div>
                       <span className="font-semibold text-stone-900">To: {log.to}</span>

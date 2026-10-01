@@ -19,31 +19,14 @@ export const OtpModal: React.FC<OtpModalProps> = ({
   purpose = 'registration',
   emailDelivered = false,
   deliveryNotice,
-  initialOtp,
 }) => {
-  const [currentOtp, setCurrentOtp] = useState<string>(initialOtp || '');
-  const [otp, setOtp] = useState<string>(initialOtp || '');
+  const [otp, setOtp] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const [isVerifying, setIsVerifying] = useState<boolean>(false);
   const [resendCooldown, setResendCooldown] = useState<number>(30);
   const [isResending, setIsResending] = useState<boolean>(false);
   const [hasRealEmail, setHasRealEmail] = useState<boolean>(emailDelivered);
-
-  useEffect(() => {
-    // If initialOtp wasn't provided, try fetching latest otp for convenience
-    if (!currentOtp) {
-      fetch(`/api/auth/latest-otp?email=${encodeURIComponent(email)}&purpose=${purpose}`)
-        .then((res) => res.json())
-        .then((data) => {
-          if (data?.otp) {
-            setCurrentOtp(data.otp);
-            setOtp(data.otp);
-          }
-        })
-        .catch(() => {});
-    }
-  }, [email, purpose]);
 
   useEffect(() => {
     let timer: any;
@@ -89,10 +72,6 @@ export const OtpModal: React.FC<OtpModalProps> = ({
 
     if (res.success) {
       setResendCooldown(30);
-      if (res.otp) {
-        setCurrentOtp(res.otp);
-        setOtp(res.otp);
-      }
       if (res.emailDelivered) {
         setHasRealEmail(true);
       }
@@ -126,38 +105,12 @@ export const OtpModal: React.FC<OtpModalProps> = ({
             <strong className="text-stone-900 font-semibold">{email}</strong>.
           </p>
 
-          {/* Quick-Fill Code Badge */}
-          {currentOtp && (
-            <div className="mb-4 p-3.5 bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-300 rounded-xl shadow-xs">
-              <div className="flex items-center justify-between gap-2 mb-2">
-                <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-950">
-                  <KeyRound className="w-4 h-4 text-emerald-600 shrink-0" />
-                  <span>Security OTP Code:</span>
-                </div>
-                <span className="font-mono text-lg font-black tracking-widest text-emerald-950 bg-white px-2.5 py-0.5 rounded-lg border border-emerald-300 shadow-xs">
-                  {currentOtp}
-                </span>
-              </div>
-              <button
-                type="button"
-                onClick={() => {
-                  setOtp(currentOtp);
-                  setError(null);
-                }}
-                className="w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-emerald-200" />
-                <span>⚡ 1-Click Auto-Fill Code ({currentOtp})</span>
-              </button>
-            </div>
-          )}
-
           {/* Real Email vs Inbox Notice */}
           <div className="mb-4 p-3 bg-stone-50 border border-stone-200 rounded-xl flex items-start gap-2.5 text-xs text-stone-700">
             <Inbox className="w-4 h-4 shrink-0 text-emerald-600 mt-0.5" />
             <div>
               <span className="font-semibold text-stone-900 block">Email Dispatched</span>
-              <span>Please check your Gmail inbox and Spam/Junk folder. You can also use the 1-Click Auto-Fill button above for instant verification!</span>
+              <span>Please check your Gmail inbox and Spam/Junk folder.</span>
             </div>
           </div>
 
