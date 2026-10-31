@@ -1,6 +1,7 @@
 {
   "users": [
     {
+<<<<<<< HEAD
       "id": "usr_admin",
       "name": "Admin",
       "email": "admin@tsdc.edu.in",
@@ -299,6 +300,19 @@
       "short_code": "123"
     }
   ],
+=======
+      "id": "usr_master_admin",
+      "name": "Master Admin",
+      "email": "smartattendance13@gmail.com",
+      "password_hash": "$2b$10$a884odgTrhXo6PKB6e6P4uzyw.az5W0/3cm7JNI221hIHnC5Zbj22",
+      "role": "admin",
+      "status": "active",
+      "created_at": "2026-10-30T20:55:25.222Z"
+    }
+  ],
+  "students": [],
+  "faculty": [],
+>>>>>>> origin/main
   "classes": [
     {
       "id": "cls_tycs_a",
@@ -323,6 +337,7 @@
       "division": "A",
       "academic_year": "2026-27",
       "is_active": true
+<<<<<<< HEAD
     },
     {
       "id": "cls_tyit_a",
@@ -331,6 +346,8 @@
       "division": "A",
       "academic_year": "2026-27",
       "is_active": true
+=======
+>>>>>>> origin/main
     }
   ],
   "subjects": [
@@ -345,6 +362,7 @@
       "subject_name": "Software Testing & Quality Assurance",
       "subject_code": "CS-602",
       "class_id": "cls_tycs_a"
+<<<<<<< HEAD
     },
     {
       "id": "sub_eth",
@@ -1401,5 +1419,27 @@
     "max_radius": 50000,
     "low_attendance_threshold": 75,
     "updated_at": "2026-10-31T04:01:00.866Z"
+=======
+    }
+  ],
+  "faculty_assignments": [],
+  "timetables": [],
+  "classrooms": [],
+  "classroom_members": [],
+  "attendance_sessions": [],
+  "attendance_records": [],
+  "otp_verifications": [],
+  "audit_logs": [],
+  "institution_settings": {
+    "id": "inst_tsdc_01",
+    "college_name": "Thakur Shyamnarayan Degree College (TSDC)",
+    "official_latitude": 19.213805,
+    "official_longitude": 72.86481,
+    "default_radius": 10,
+    "min_radius": 1,
+    "max_radius": 50,
+    "low_attendance_threshold": 75,
+    "updated_at": "2026-10-30T20:50:02.087Z"
+>>>>>>> origin/main
   }
 }
