@@ -1,0 +1,1405 @@
+{
+  "users": [
+    {
+      "id": "usr_admin",
+      "name": "Admin",
+      "email": "admin@tsdc.edu.in",
+      "password_hash": "$2b$10$Qt/i8fWU09PT.vsemkLA2O59Pn48XPJPuRiY8/.qnzezInD8R2dya",
+      "role": "admin",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z",
+      "updated_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "usr_fac_tuba",
+      "name": "Tuba Ma'am",
+      "email": "tuba@tsdc.edu.in",
+      "password_hash": "$2b$10$xIpFWfE5Bic6b6Km1theCuRy5gbSEQ649vaugcT72w.8wGhaZkH6u",
+      "role": "faculty",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z",
+      "updated_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "usr_fac_ajit",
+      "name": "Ajit Sir",
+      "email": "ajit@tsdc.edu.in",
+      "password_hash": "$2b$10$p3n7TvyYO.BzPidtMORfAut9IhY0l5ibKXt6QiVhJltBwvWqjQ66.",
+      "role": "faculty",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z",
+      "updated_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "usr_fac_vijay",
+      "name": "Vijay Sir",
+      "email": "vijay@tsdc.edu.in",
+      "password_hash": "$2b$10$rsV7GhusEOL9JBZYmmAzg.jdGqvB6T6Bi6mr1VeZiMVpqq.iPGUBe",
+      "role": "faculty",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z",
+      "updated_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "usr_fac_dsouza",
+      "name": "Dsouza Ma'am",
+      "email": "dsouza@tsdc.edu.in",
+      "password_hash": "$2b$10$r1V3i1yMSn069ZEHIdDAwu4kVTj9/N4KarYEA5xs3dJ9Gz4MUKYcC",
+      "role": "faculty",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z",
+      "updated_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "usr_fac_aparna",
+      "name": "Aparna Ma'am",
+      "email": "aparna@tsdc.edu.in",
+      "password_hash": "$2b$10$XXIyq4gQicz5NijpsQH7N.JKz7c7x1ra6W3owex2Gn3b2Ad0FGNrO",
+      "role": "faculty",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z",
+      "updated_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "usr_fac_rajesh",
+      "name": "Rajesh Sir",
+      "email": "rajesh@tsdc.edu.in",
+      "password_hash": "$2b$10$0jKaACBKEii8RSfGEd.ld.KVih8ErpzOCvMfsE5cF8is.ZcLaeagu",
+      "role": "faculty",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z",
+      "updated_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "usr_fac_abha",
+      "name": "Abha Ma'am",
+      "email": "abha@tsdc.edu.in",
+      "password_hash": "$2b$10$wmDjPTiH9FyxjHL/a2OkOe8sKHg2GmpYoA6Wwn0c.QkdAfWYQPsO6",
+      "role": "faculty",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z",
+      "updated_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "usr_fac_kajal",
+      "name": "Kajal Ma'am",
+      "email": "kajal@tsdc.edu.in",
+      "password_hash": "$2b$10$qCYGx9HAeWqXe4G.3WFbme0LMSRR7jJNr3kRS5udvAe/o39H/cWK6",
+      "role": "faculty",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z",
+      "updated_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "usr_std_01",
+      "name": "Aarav Sharma",
+      "email": "student@tsdc.edu.in",
+      "password_hash": "$2b$10$M1VEx9x5/WwgNool6j/l8eNN2FsPKasGtSqqjzaQTJZbJSmR3/N.y",
+      "role": "student",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z",
+      "updated_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "usr_std_02",
+      "name": "Rohan Mehta",
+      "email": "rohan.mehta@tsdc.edu.in",
+      "password_hash": "$2b$10$M1VEx9x5/WwgNool6j/l8eNN2FsPKasGtSqqjzaQTJZbJSmR3/N.y",
+      "role": "student",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z",
+      "updated_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "usr_std_03",
+      "name": "Priya Patel",
+      "email": "priya.patel@tsdc.edu.in",
+      "password_hash": "$2b$10$M1VEx9x5/WwgNool6j/l8eNN2FsPKasGtSqqjzaQTJZbJSmR3/N.y",
+      "role": "student",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z",
+      "updated_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "usr_std_04",
+      "name": "Sneha Verma",
+      "email": "sneha.verma@tsdc.edu.in",
+      "password_hash": "$2b$10$M1VEx9x5/WwgNool6j/l8eNN2FsPKasGtSqqjzaQTJZbJSmR3/N.y",
+      "role": "student",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z",
+      "updated_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "usr_1793419395408_wwcz",
+      "name": "Parth Borole",
+      "email": "boroleparth10@gmail.com",
+      "password_hash": "$2b$10$L99lV3YQwK8OXLBnZnXIa.L2yOnnSfi5hB7gaDgndmCDRjhjZYmUi",
+      "role": "student",
+      "status": "active",
+      "created_at": "2026-10-31T04:03:15.409Z",
+      "updated_at": "2026-10-31T05:19:00.012Z"
+    },
+    {
+      "id": "usr_1793419575190_mbr6",
+      "name": "Parth",
+      "email": "smartattendance13@gmail.com",
+      "password_hash": "$2b$10$OOKX8oq6nIaMFc6s5l90recq3JWGLo5zPVm6u67AgksEVDvkkw0Gy",
+      "role": "faculty",
+      "status": "active",
+      "created_at": "2026-10-31T04:06:15.190Z",
+      "updated_at": "2026-10-31T04:06:15.190Z"
+    },
+    {
+      "id": "usr_1793420575319_z3h2",
+      "name": "Parth Borole",
+      "email": "boroleparth20@gmail.com",
+      "password_hash": "$2b$10$i6ilEMmWNaZd5sXlO1s4cOfDUSx2bV/nKeHazoJOMw.H5aGima9Lq",
+      "role": "student",
+      "status": "active",
+      "created_at": "2026-10-31T04:22:55.319Z",
+      "updated_at": "2026-10-31T04:23:09.194Z"
+    },
+    {
+      "id": "usr_1793420756017_88lb",
+      "name": "Arun",
+      "email": "parthborole2006@gmail.com",
+      "password_hash": "$2b$10$eLG5.d562d25aIMBSIZfkel40OdMMNGff8gmY162TPdFbfZFXcuqi",
+      "role": "faculty",
+      "status": "active",
+      "created_at": "2026-10-31T04:25:56.017Z",
+      "updated_at": "2026-10-31T05:19:53.806Z"
+    }
+  ],
+  "students": [
+    {
+      "id": "std_01",
+      "user_id": "usr_std_01",
+      "student_id": "TSDC-TYCS-101",
+      "roll_number": "101",
+      "class_id": "cls_tycs_a",
+      "division": "A",
+      "academic_year": "2026-27"
+    },
+    {
+      "id": "std_02",
+      "user_id": "usr_std_02",
+      "student_id": "TSDC-TYCS-102",
+      "roll_number": "102",
+      "class_id": "cls_tycs_a",
+      "division": "A",
+      "academic_year": "2026-27"
+    },
+    {
+      "id": "std_03",
+      "user_id": "usr_std_03",
+      "student_id": "TSDC-TYCS-103",
+      "roll_number": "103",
+      "class_id": "cls_tycs_a",
+      "division": "A",
+      "academic_year": "2026-27"
+    },
+    {
+      "id": "std_04",
+      "user_id": "usr_std_04",
+      "student_id": "TSDC-TYCS-104",
+      "roll_number": "104",
+      "class_id": "cls_tycs_a",
+      "division": "A",
+      "academic_year": "2026-27"
+    },
+    {
+      "id": "std_1793419395411_bdp2",
+      "user_id": "usr_1793419395408_wwcz",
+      "student_id": "202403010",
+      "roll_number": "10",
+      "class_id": "cls_tycs_a",
+      "division": "A",
+      "academic_year": "2026-27"
+    },
+    {
+      "id": "std_1793420575321_zk2w",
+      "user_id": "usr_1793420575319_z3h2",
+      "student_id": "2020403010",
+      "roll_number": "10",
+      "class_id": "cls_tycs_a",
+      "division": "A",
+      "academic_year": "2026-27"
+    }
+  ],
+  "faculty": [
+    {
+      "id": "fac_tuba",
+      "user_id": "usr_fac_tuba",
+      "department": "Computer Science",
+      "employee_id": "TSDC-FAC-TUBA",
+      "short_code": "TUBA"
+    },
+    {
+      "id": "fac_ajit",
+      "user_id": "usr_fac_ajit",
+      "department": "Computer Science",
+      "employee_id": "TSDC-FAC-AJIT",
+      "short_code": "AJIT"
+    },
+    {
+      "id": "fac_vijay",
+      "user_id": "usr_fac_vijay",
+      "department": "Computer Science",
+      "employee_id": "TSDC-FAC-VIJAY",
+      "short_code": "VIJAY"
+    },
+    {
+      "id": "fac_dsouza",
+      "user_id": "usr_fac_dsouza",
+      "department": "Computer Science",
+      "employee_id": "TSDC-FAC-DSOUZA",
+      "short_code": "DSOUZA"
+    },
+    {
+      "id": "fac_aparna",
+      "user_id": "usr_fac_aparna",
+      "department": "Computer Science",
+      "employee_id": "TSDC-FAC-APARNA",
+      "short_code": "APARNA"
+    },
+    {
+      "id": "fac_rajesh",
+      "user_id": "usr_fac_rajesh",
+      "department": "Computer Science",
+      "employee_id": "TSDC-FAC-RAJESH",
+      "short_code": "RAJESH"
+    },
+    {
+      "id": "fac_abha",
+      "user_id": "usr_fac_abha",
+      "department": "Computer Science",
+      "employee_id": "TSDC-FAC-ABHA",
+      "short_code": "ABHA"
+    },
+    {
+      "id": "fac_kajal",
+      "user_id": "usr_fac_kajal",
+      "department": "Computer Science",
+      "employee_id": "TSDC-FAC-KAJAL",
+      "short_code": "KAJAL"
+    },
+    {
+      "id": "fac_1793419575191_46lj",
+      "user_id": "usr_1793419575190_mbr6",
+      "department": "Computer Science",
+      "employee_id": "1234",
+      "short_code": "1234"
+    },
+    {
+      "id": "fac_1793420756019_96hh",
+      "user_id": "usr_1793420756017_88lb",
+      "department": "Computer Science",
+      "employee_id": "123",
+      "short_code": "123"
+    }
+  ],
+  "classes": [
+    {
+      "id": "cls_tycs_a",
+      "course_name": "B.Sc. Computer Science",
+      "class_name": "TYCS",
+      "division": "A",
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "cls_tycs_b",
+      "course_name": "B.Sc. Computer Science",
+      "class_name": "TYCS",
+      "division": "B",
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "cls_sycs_a",
+      "course_name": "B.Sc. Computer Science",
+      "class_name": "SYCS",
+      "division": "A",
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "cls_tyit_a",
+      "course_name": "B.Sc. Information Technology",
+      "class_name": "TYIT",
+      "division": "A",
+      "academic_year": "2026-27",
+      "is_active": true
+    }
+  ],
+  "subjects": [
+    {
+      "id": "sub_ai",
+      "subject_name": "Artificial Intelligence",
+      "subject_code": "CS-601",
+      "class_id": "cls_tycs_a"
+    },
+    {
+      "id": "sub_stqa",
+      "subject_name": "Software Testing & Quality Assurance",
+      "subject_code": "CS-602",
+      "class_id": "cls_tycs_a"
+    },
+    {
+      "id": "sub_eth",
+      "subject_name": "Ethical Hacking (ETH)",
+      "subject_code": "CS-603",
+      "class_id": "cls_tycs_a"
+    },
+    {
+      "id": "sub_dv",
+      "subject_name": "Data Visualization (DV)",
+      "subject_code": "CS-604",
+      "class_id": "cls_tycs_a"
+    },
+    {
+      "id": "sub_aba",
+      "subject_name": "Advanced Business Analytics (ABA)",
+      "subject_code": "CS-605",
+      "class_id": "cls_tycs_a"
+    },
+    {
+      "id": "sub_cis",
+      "subject_name": "Cyber & Information Security (CIS)",
+      "subject_code": "CS-606",
+      "class_id": "cls_tycs_a"
+    },
+    {
+      "id": "sub_mp",
+      "subject_name": "Mini Project (MP)",
+      "subject_code": "CS-607",
+      "class_id": "cls_tycs_a"
+    },
+    {
+      "id": "sub_iks",
+      "subject_name": "Indian Knowledge System (IKS)",
+      "subject_code": "CS-608",
+      "class_id": "cls_tycs_a"
+    },
+    {
+      "id": "sub_cep",
+      "subject_name": "Continuous Evaluation Project (CEP)",
+      "subject_code": "CS-609",
+      "class_id": "cls_tycs_a"
+    },
+    {
+      "id": "sub_1793419575192_5rt0",
+      "subject_name": "CIS",
+      "subject_code": "1234-101",
+      "class_id": "cls_tycs_a"
+    },
+    {
+      "id": "sub_1793420756020_08fa",
+      "subject_name": "Parth*2006",
+      "subject_code": "123-101",
+      "class_id": "cls_tycs_a"
+    }
+  ],
+  "faculty_assignments": [
+    {
+      "id": "fa_01",
+      "faculty_id": "fac_vijay",
+      "subject_id": "sub_ai",
+      "class_id": "cls_tycs_a"
+    },
+    {
+      "id": "fa_02",
+      "faculty_id": "fac_dsouza",
+      "subject_id": "sub_stqa",
+      "class_id": "cls_tycs_a"
+    },
+    {
+      "id": "fa_03",
+      "faculty_id": "fac_aparna",
+      "subject_id": "sub_eth",
+      "class_id": "cls_tycs_a"
+    },
+    {
+      "id": "fa_04",
+      "faculty_id": "fac_ajit",
+      "subject_id": "sub_dv",
+      "class_id": "cls_tycs_a"
+    },
+    {
+      "id": "fa_05",
+      "faculty_id": "fac_tuba",
+      "subject_id": "sub_aba",
+      "class_id": "cls_tycs_a"
+    },
+    {
+      "id": "fa_06",
+      "faculty_id": "fac_rajesh",
+      "subject_id": "sub_cis",
+      "class_id": "cls_tycs_a"
+    },
+    {
+      "id": "fa_07",
+      "faculty_id": "fac_abha",
+      "subject_id": "sub_mp",
+      "class_id": "cls_tycs_a"
+    },
+    {
+      "id": "fa_08",
+      "faculty_id": "fac_kajal",
+      "subject_id": "sub_iks",
+      "class_id": "cls_tycs_a"
+    },
+    {
+      "id": "fa_1793419575192",
+      "faculty_id": "fac_1793419575191_46lj",
+      "subject_id": "sub_1793419575192_5rt0",
+      "class_id": "cls_tycs_a"
+    },
+    {
+      "id": "fa_1793420756020",
+      "faculty_id": "fac_1793420756019_96hh",
+      "subject_id": "sub_1793420756020_08fa",
+      "class_id": "cls_tycs_a"
+    }
+  ],
+  "timetables": [
+    {
+      "id": "tt_mon_1a",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_aba",
+      "faculty_id": "fac_tuba",
+      "day_of_week": "Monday",
+      "start_time": "08:00 AM",
+      "end_time": "10:00 AM",
+      "room": "2nd Floor Lab 2",
+      "is_lab": true,
+      "batch": "A1",
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_mon_1b",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_dv",
+      "faculty_id": "fac_ajit",
+      "day_of_week": "Monday",
+      "start_time": "08:00 AM",
+      "end_time": "10:00 AM",
+      "room": "2nd Floor Lab 1",
+      "is_lab": true,
+      "batch": "A2",
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_mon_2",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_ai",
+      "faculty_id": "fac_vijay",
+      "day_of_week": "Monday",
+      "start_time": "10:15 AM",
+      "end_time": "11:15 AM",
+      "room": "701",
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_mon_3",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_stqa",
+      "faculty_id": "fac_dsouza",
+      "day_of_week": "Monday",
+      "start_time": "11:15 AM",
+      "end_time": "12:15 PM",
+      "room": "701",
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_mon_4",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_aba",
+      "faculty_id": "fac_tuba",
+      "day_of_week": "Monday",
+      "start_time": "12:45 PM",
+      "end_time": "01:45 PM",
+      "room": "701",
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_mon_5",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_eth",
+      "faculty_id": "fac_aparna",
+      "day_of_week": "Monday",
+      "start_time": "01:45 PM",
+      "end_time": "02:45 PM",
+      "room": "701",
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_tue_1",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_iks",
+      "faculty_id": "fac_kajal",
+      "day_of_week": "Tuesday",
+      "start_time": "08:00 AM",
+      "end_time": "09:00 AM",
+      "room": "701",
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_tue_2",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_ai",
+      "faculty_id": "fac_vijay",
+      "day_of_week": "Tuesday",
+      "start_time": "09:00 AM",
+      "end_time": "10:00 AM",
+      "room": "701",
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_tue_3",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_stqa",
+      "faculty_id": "fac_dsouza",
+      "day_of_week": "Tuesday",
+      "start_time": "10:15 AM",
+      "end_time": "11:15 AM",
+      "room": "701",
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_tue_4",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_cis",
+      "faculty_id": "fac_rajesh",
+      "day_of_week": "Tuesday",
+      "start_time": "11:15 AM",
+      "end_time": "12:15 PM",
+      "room": "701",
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_tue_5",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_mp",
+      "faculty_id": "fac_abha",
+      "day_of_week": "Tuesday",
+      "start_time": "12:45 PM",
+      "end_time": "02:45 PM",
+      "room": "701",
+      "is_lab": true,
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_wed_1",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_stqa",
+      "faculty_id": "fac_dsouza",
+      "day_of_week": "Wednesday",
+      "start_time": "08:00 AM",
+      "end_time": "10:00 AM",
+      "room": "4th Floor Lab CC",
+      "is_lab": true,
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_wed_2",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_stqa",
+      "faculty_id": "fac_dsouza",
+      "day_of_week": "Wednesday",
+      "start_time": "10:15 AM",
+      "end_time": "11:15 AM",
+      "room": "701",
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_wed_3",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_cis",
+      "faculty_id": "fac_rajesh",
+      "day_of_week": "Wednesday",
+      "start_time": "11:15 AM",
+      "end_time": "12:15 PM",
+      "room": "701",
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_wed_4",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_ai",
+      "faculty_id": "fac_vijay",
+      "day_of_week": "Wednesday",
+      "start_time": "12:45 PM",
+      "end_time": "02:45 PM",
+      "room": "4th Floor Lab CC",
+      "is_lab": true,
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_thu_1",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_dv",
+      "faculty_id": "fac_ajit",
+      "day_of_week": "Thursday",
+      "start_time": "08:00 AM",
+      "end_time": "10:00 AM",
+      "room": "2nd Floor Lab CC",
+      "is_lab": true,
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_thu_2",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_cis",
+      "faculty_id": "fac_rajesh",
+      "day_of_week": "Thursday",
+      "start_time": "10:15 AM",
+      "end_time": "12:15 PM",
+      "room": "4th Floor Lab CC",
+      "is_lab": true,
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_thu_3",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_stqa",
+      "faculty_id": "fac_dsouza",
+      "day_of_week": "Thursday",
+      "start_time": "12:45 PM",
+      "end_time": "01:45 PM",
+      "room": "701",
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_thu_4",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_iks",
+      "faculty_id": "fac_kajal",
+      "day_of_week": "Thursday",
+      "start_time": "01:45 PM",
+      "end_time": "02:45 PM",
+      "room": "701",
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_fri_1a",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_aba",
+      "faculty_id": "fac_tuba",
+      "day_of_week": "Friday",
+      "start_time": "08:00 AM",
+      "end_time": "10:00 AM",
+      "room": "2nd Floor Lab 2",
+      "is_lab": true,
+      "batch": "A2",
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_fri_1b",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_dv",
+      "faculty_id": "fac_ajit",
+      "day_of_week": "Friday",
+      "start_time": "08:00 AM",
+      "end_time": "10:00 AM",
+      "room": "2nd Floor Lab 1",
+      "is_lab": true,
+      "batch": "A1",
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_fri_2",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_eth",
+      "faculty_id": "fac_aparna",
+      "day_of_week": "Friday",
+      "start_time": "10:15 AM",
+      "end_time": "12:15 PM",
+      "room": "4th Floor Lab CC",
+      "is_lab": true,
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_fri_3",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_eth",
+      "faculty_id": "fac_aparna",
+      "day_of_week": "Friday",
+      "start_time": "12:45 PM",
+      "end_time": "01:45 PM",
+      "room": "701",
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_fri_4",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_aba",
+      "faculty_id": "fac_tuba",
+      "day_of_week": "Friday",
+      "start_time": "01:45 PM",
+      "end_time": "02:45 PM",
+      "room": "701",
+      "academic_year": "2026-27",
+      "is_active": true
+    },
+    {
+      "id": "tt_sat_1",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_cep",
+      "faculty_id": "fac_vijay",
+      "day_of_week": "Saturday",
+      "start_time": "08:00 AM",
+      "end_time": "10:00 AM",
+      "room": "603",
+      "academic_year": "2026-27",
+      "is_active": true
+    }
+  ],
+  "classrooms": [
+    {
+      "id": "cr_ai_tycsa",
+      "classroom_name": "Artificial Intelligence — TYCS.A",
+      "name": "Artificial Intelligence — TYCS.A",
+      "subject_id": "sub_ai",
+      "class_id": "cls_tycs_a",
+      "division": "A",
+      "faculty_id": "fac_vijay",
+      "join_code": "AI-7K4P",
+      "academic_year": "2026-27",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "cr_stqa_tycsa",
+      "classroom_name": "Software Testing & QA — TYCS.A",
+      "name": "Software Testing & QA — TYCS.A",
+      "subject_id": "sub_stqa",
+      "class_id": "cls_tycs_a",
+      "division": "A",
+      "faculty_id": "fac_dsouza",
+      "join_code": "ST-9M2X",
+      "academic_year": "2026-27",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "cr_eth_tycsa",
+      "classroom_name": "Ethical Hacking — TYCS.A",
+      "name": "Ethical Hacking — TYCS.A",
+      "subject_id": "sub_eth",
+      "class_id": "cls_tycs_a",
+      "division": "A",
+      "faculty_id": "fac_aparna",
+      "join_code": "EH-6Q1V",
+      "academic_year": "2026-27",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "cr_dv_tycsa",
+      "classroom_name": "Data Visualization — TYCS.A",
+      "name": "Data Visualization — TYCS.A",
+      "subject_id": "sub_dv",
+      "class_id": "cls_tycs_a",
+      "division": "A",
+      "faculty_id": "fac_ajit",
+      "join_code": "DV-3R8P",
+      "academic_year": "2026-27",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "cr_aba_tycsa",
+      "classroom_name": "Advanced Business Analytics — TYCS.A",
+      "name": "Advanced Business Analytics — TYCS.A",
+      "subject_id": "sub_aba",
+      "class_id": "cls_tycs_a",
+      "division": "A",
+      "faculty_id": "fac_tuba",
+      "join_code": "AB-8W2T",
+      "academic_year": "2026-27",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "cr_cis_tycsa",
+      "classroom_name": "Cyber & Info Security — TYCS.A",
+      "name": "Cyber & Info Security — TYCS.A",
+      "subject_id": "sub_cis",
+      "class_id": "cls_tycs_a",
+      "division": "A",
+      "faculty_id": "fac_rajesh",
+      "join_code": "CI-4L9R",
+      "academic_year": "2026-27",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "cr_mp_tycsa",
+      "classroom_name": "Mini Project — TYCS.A",
+      "name": "Mini Project — TYCS.A",
+      "subject_id": "sub_mp",
+      "class_id": "cls_tycs_a",
+      "division": "A",
+      "faculty_id": "fac_abha",
+      "join_code": "MP-2V5A",
+      "academic_year": "2026-27",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "cr_iks_tycsa",
+      "classroom_name": "Indian Knowledge System — TYCS.A",
+      "name": "Indian Knowledge System — TYCS.A",
+      "subject_id": "sub_iks",
+      "class_id": "cls_tycs_a",
+      "division": "A",
+      "faculty_id": "fac_kajal",
+      "join_code": "IK-5L3N",
+      "academic_year": "2026-27",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "cr_1793419575192_vnlj",
+      "classroom_name": "CIS — TYCS.A",
+      "name": "CIS — TYCS.A",
+      "join_code": "123-4W9V",
+      "subject_id": "sub_1793419575192_5rt0",
+      "class_id": "cls_tycs_a",
+      "division": "A",
+      "faculty_id": "fac_1793419575191_46lj",
+      "academic_year": "2026-27",
+      "status": "active",
+      "created_at": "2026-10-31T04:06:15.192Z"
+    },
+    {
+      "id": "cr_1793420756021_u5a2",
+      "classroom_name": "Parth*2006 — TYCS.A",
+      "name": "Parth*2006 — TYCS.A",
+      "join_code": "123-56P9",
+      "subject_id": "sub_1793420756020_08fa",
+      "class_id": "cls_tycs_a",
+      "division": "A",
+      "faculty_id": "fac_1793420756019_96hh",
+      "academic_year": "2026-27",
+      "status": "active",
+      "created_at": "2026-10-31T04:25:56.021Z"
+    }
+  ],
+  "classroom_members": [
+    {
+      "id": "cm_01",
+      "classroom_id": "cr_ai_tycsa",
+      "student_id": "std_01",
+      "joined_at": "2026-10-31T04:01:01.529Z",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "cm_02",
+      "classroom_id": "cr_stqa_tycsa",
+      "student_id": "std_01",
+      "joined_at": "2026-10-31T04:01:01.529Z",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "cm_03",
+      "classroom_id": "cr_eth_tycsa",
+      "student_id": "std_01",
+      "joined_at": "2026-10-31T04:01:01.529Z",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "cm_04",
+      "classroom_id": "cr_dv_tycsa",
+      "student_id": "std_01",
+      "joined_at": "2026-10-31T04:01:01.529Z",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "cm_05",
+      "classroom_id": "cr_aba_tycsa",
+      "student_id": "std_01",
+      "joined_at": "2026-10-31T04:01:01.529Z",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "cm_06",
+      "classroom_id": "cr_iks_tycsa",
+      "student_id": "std_01",
+      "joined_at": "2026-10-31T04:01:01.529Z",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "cm_07",
+      "classroom_id": "cr_ai_tycsa",
+      "student_id": "std_02",
+      "joined_at": "2026-10-31T04:01:01.529Z",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "cm_08",
+      "classroom_id": "cr_stqa_tycsa",
+      "student_id": "std_02",
+      "joined_at": "2026-10-31T04:01:01.529Z",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "cm_09",
+      "classroom_id": "cr_ai_tycsa",
+      "student_id": "std_03",
+      "joined_at": "2026-10-31T04:01:01.529Z",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "cm_10",
+      "classroom_id": "cr_eth_tycsa",
+      "student_id": "std_03",
+      "joined_at": "2026-10-31T04:01:01.529Z",
+      "status": "active",
+      "created_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "cm_1793421193357_sbz9",
+      "classroom_id": "cr_1793420756021_u5a2",
+      "student_id": "std_1793419395411_bdp2",
+      "joined_at": "2026-10-31T04:33:13.357Z",
+      "status": "active",
+      "created_at": "2026-10-31T04:33:13.357Z"
+    }
+  ],
+  "attendance_sessions": [
+    {
+      "id": "sess_1793420870113_57is",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_1793420756020_08fa",
+      "faculty_id": "fac_1793420756019_96hh",
+      "lecture_topic": "a",
+      "lecture_number": 1,
+      "session_date": "2026-10-31",
+      "start_time": "09:00 AM",
+      "radius_meters": 10,
+      "center_latitude": 19.213805,
+      "center_longitude": 72.86481,
+      "status": "CLOSED",
+      "is_locked": false,
+      "attendance_mode": "SMART_GEOFENCE",
+      "created_at": "2026-10-31T04:27:50.113Z",
+      "end_time": "10:50 AM"
+    },
+    {
+      "id": "sess_live_01",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_ai",
+      "classroom_id": "cr_ai_tycsa",
+      "faculty_id": "fac_vijay",
+      "lecture_topic": "Heuristic Search & A* Algorithm Implementation",
+      "session_date": "2026-10-31",
+      "start_time": "08:00 AM",
+      "radius_meters": 10,
+      "center_latitude": 19.213805,
+      "center_longitude": 72.86481,
+      "status": "ACTIVE",
+      "created_at": "2026-10-31T04:01:01.529Z"
+    },
+    {
+      "id": "sess_past_01",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_ai",
+      "classroom_id": "cr_ai_tycsa",
+      "faculty_id": "fac_vijay",
+      "lecture_topic": "Introduction to Artificial Intelligence & Agents",
+      "session_date": "2026-09-28",
+      "start_time": "08:00 AM",
+      "end_time": "09:00 AM",
+      "radius_meters": 10,
+      "center_latitude": 19.213805,
+      "center_longitude": 72.86481,
+      "status": "CLOSED",
+      "created_at": "2026-09-28T08:00:00Z"
+    },
+    {
+      "id": "sess_past_02",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_stqa",
+      "classroom_id": "cr_stqa_tycsa",
+      "faculty_id": "fac_dsouza",
+      "lecture_topic": "Boundary Value Analysis & Equivalence Partitioning",
+      "session_date": "2026-09-28",
+      "start_time": "10:15 AM",
+      "end_time": "11:15 AM",
+      "radius_meters": 10,
+      "center_latitude": 19.213805,
+      "center_longitude": 72.86481,
+      "status": "CLOSED",
+      "created_at": "2026-09-28T10:15:00Z"
+    }
+  ],
+  "attendance_records": [
+    {
+      "id": "att_rec_ov_1793423996732",
+      "session_id": "sess_1793420870113_57is",
+      "student_id": "std_1793420575321_zk2w",
+      "marked_at": "2026-10-31T05:19:59.851Z",
+      "distance_from_center": 0,
+      "latitude": 0,
+      "longitude": 0,
+      "accuracy": 0,
+      "altitude": null,
+      "camera_image_path": "",
+      "camera_verification_status": "VERIFIED",
+      "device_id": "faculty_manual_override",
+      "status": "ABSENT",
+      "created_at": "2026-10-31T05:19:56.732Z"
+    },
+    {
+      "id": "rec_01",
+      "session_id": "sess_past_01",
+      "student_id": "std_01",
+      "classroom_id": "cr_ai_tycsa",
+      "status": "PRESENT",
+      "marked_at": "2026-09-28T07:05:00Z",
+      "latitude": 19.213805,
+      "longitude": 72.86481,
+      "accuracy": 3.5,
+      "altitude": 24.2,
+      "distance_from_center": 2.1,
+      "camera_image_path": "data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\"><rect fill=\"%2310b981\" width=\"100\" height=\"100\"/><text fill=\"white\" x=\"50%\" y=\"55%\" text-anchor=\"middle\" font-size=\"12\">VERIFIED</text></svg>",
+      "camera_verification_status": "VERIFIED",
+      "created_at": "2026-09-28T07:05:00Z"
+    },
+    {
+      "id": "rec_02",
+      "session_id": "sess_past_02",
+      "student_id": "std_01",
+      "classroom_id": "cr_stqa_tycsa",
+      "status": "PRESENT",
+      "marked_at": "2026-09-28T08:58:00Z",
+      "latitude": 19.213805,
+      "longitude": 72.86481,
+      "accuracy": 4.1,
+      "altitude": 24,
+      "distance_from_center": 3.4,
+      "camera_image_path": "data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\"><rect fill=\"%2310b981\" width=\"100\" height=\"100\"/><text fill=\"white\" x=\"50%\" y=\"55%\" text-anchor=\"middle\" font-size=\"12\">VERIFIED</text></svg>",
+      "camera_verification_status": "VERIFIED",
+      "created_at": "2026-09-28T08:58:00Z"
+    }
+  ],
+  "otp_verifications": [
+    {
+      "id": "otp_1793419480527",
+      "email": "boroleparth10@gmail.com",
+      "otp_hash": "$2b$08$7kYOZkLA3Db0AbF3aymym.h.VKT2C83UJEs11O77URUWlAqJAFipO",
+      "expires_at": 1793420080527,
+      "attempts": 0,
+      "verified": false,
+      "purpose": "registration",
+      "created_at": "2026-10-31T04:04:40.527Z"
+    },
+    {
+      "id": "otp_1793419575209_shwb",
+      "email": "smartattendance13@gmail.com",
+      "otp_hash": "$2b$08$HEcJBiV9JwqpInf/gcrNuOnii52VvOVsXth061cts8ycOlpN6qR3O",
+      "expires_at": 1793420175209,
+      "attempts": 0,
+      "verified": false,
+      "purpose": "registration",
+      "created_at": "2026-10-31T04:06:15.209Z"
+    },
+    {
+      "id": "otp_1793420575337_tlt5",
+      "email": "boroleparth20@gmail.com",
+      "otp_hash": "$2b$08$RwwrAdfVIdzE6uREJuVdS.xwm.dKAjvjwNBSlEklhQyFuDLCDACaq",
+      "expires_at": 1793421175337,
+      "attempts": 0,
+      "verified": true,
+      "purpose": "registration",
+      "created_at": "2026-10-31T04:22:55.337Z"
+    },
+    {
+      "id": "otp_1793420657716_nzez",
+      "email": "boroleparth10@gmail.com",
+      "otp_hash": "$2b$08$p1mhe2KSRH2kbPzzbmbdvepPZBl2bq90xhjPv4wDxbzfjtKY7K3Q2",
+      "expires_at": 1793421257716,
+      "attempts": 0,
+      "verified": true,
+      "purpose": "password_reset",
+      "created_at": "2026-10-31T04:24:17.716Z"
+    },
+    {
+      "id": "otp_1793420756039_ukw3",
+      "email": "parthborole2006@gmail.com",
+      "otp_hash": "$2b$08$N0iQJuKB8IKAD5gqH7xh2ulB/cJDF9eWnTx2bbCTMQT5t0cvOmeA6",
+      "expires_at": 1793421356039,
+      "attempts": 0,
+      "verified": true,
+      "purpose": "registration",
+      "created_at": "2026-10-31T04:25:56.039Z"
+    },
+    {
+      "id": "otp_1793420888716_viat",
+      "email": "boroleparth10@gmail.com",
+      "otp_hash": "$2b$08$yA5Ij8wYJaRkymJfQa2J3Of.36p2HlgxOWktsVbdfgV47iEfQ/CKm",
+      "expires_at": 1793421488716,
+      "attempts": 0,
+      "verified": true,
+      "purpose": "password_reset",
+      "created_at": "2026-10-31T04:28:08.716Z"
+    },
+    {
+      "id": "otp_1793421038303",
+      "email": "boroleparth10@gmail.com",
+      "otp_hash": "$2b$08$T7OV5YJtCu82.cRHQhlbIeQZ/tbPGmClrrdlv5W9d5BDtK7UUUW2K",
+      "expires_at": 1793421638303,
+      "attempts": 0,
+      "verified": true,
+      "purpose": "login",
+      "created_at": "2026-10-31T04:30:38.303Z"
+    },
+    {
+      "id": "otp_1793421105137_gm1z",
+      "email": "parthborole2006@gmail.com",
+      "otp_hash": "$2b$08$8tjjxQ42DBx7rQw1A3EBN.e6Rj82kSdcVkoivzAJRj6aJaldNPA9O",
+      "expires_at": 1793421705136,
+      "attempts": 0,
+      "verified": true,
+      "purpose": "password_reset",
+      "created_at": "2026-10-31T04:31:45.137Z"
+    },
+    {
+      "id": "otp_1793421135970_p39u",
+      "email": "parthborole2006@gmail.com",
+      "otp_hash": "$2b$08$3tLvmv4hYn3X1ywL00nFMu9kK315mMD9fxyVDNtac7PmArs9IHfgS",
+      "expires_at": 1793421735970,
+      "attempts": 0,
+      "verified": true,
+      "purpose": "login",
+      "created_at": "2026-10-31T04:32:15.970Z"
+    },
+    {
+      "id": "otp_1793421173725_jrbd",
+      "email": "boroleparth10@gmail.com",
+      "otp_hash": "$2b$08$xVoopMgCuJ7j5dk/L27Ue.BZ47cwX5anf8M9qpf72bnZt/r2k2VuO",
+      "expires_at": 1793421773725,
+      "attempts": 0,
+      "verified": true,
+      "purpose": "login",
+      "created_at": "2026-10-31T04:32:53.725Z"
+    },
+    {
+      "id": "otp_1793421220464_z7wp",
+      "email": "boroleparth10@gmail.com",
+      "otp_hash": "$2b$08$C.kvQttqIvfkgGZU2g2HZuD.Fyj9cwVp7zGDu2tw0hq7UxHUM4J9e",
+      "expires_at": 1793421820464,
+      "attempts": 0,
+      "verified": true,
+      "purpose": "login",
+      "created_at": "2026-10-31T04:33:40.464Z"
+    },
+    {
+      "id": "otp_1793421311417_5yqb",
+      "email": "boroleparth10@gmail.com",
+      "otp_hash": "$2b$08$hU4ZbH0u5KqgSlKQ/9YWneKTBO7eR4JxjoDWH.FJY5rIgcL1nXtOC",
+      "expires_at": 1793421911417,
+      "attempts": 1,
+      "verified": true,
+      "purpose": "login",
+      "created_at": "2026-10-31T04:35:11.418Z"
+    },
+    {
+      "id": "otp_1793421424729_2rdg",
+      "email": "boroleparth10@gmail.com",
+      "otp_hash": "$2b$08$dZ6zNYqXeBeJeeWE1HdPn.fGx0EAgOi0yDwpOMAJ3nvMaamdmB3I2",
+      "expires_at": 1793422024729,
+      "attempts": 0,
+      "verified": true,
+      "purpose": "login",
+      "created_at": "2026-10-31T04:37:04.730Z"
+    },
+    {
+      "id": "otp_1793422837894_avoa",
+      "email": "boroleparth10@gmail.com",
+      "otp_hash": "$2b$08$Y4XPef7WakJhP5a9Hco7NemwVuleGs6zRFjbtMVOGCWJbsDHDZSjO",
+      "expires_at": 1793423437894,
+      "attempts": 0,
+      "verified": true,
+      "purpose": "login",
+      "created_at": "2026-10-31T05:00:37.894Z"
+    },
+    {
+      "id": "otp_1793423299558_kvr1",
+      "email": "boroleparth10@gmail.com",
+      "otp_hash": "$2b$08$EPKZQThfHdMCGfUnLRldJO1lDoWVA6fCLwVl7Cv5WSd2fJBUmTUiC",
+      "expires_at": 1793423899557,
+      "attempts": 0,
+      "verified": true,
+      "purpose": "login",
+      "created_at": "2026-10-31T05:08:19.558Z"
+    },
+    {
+      "id": "otp_1793423516258_5c2e",
+      "email": "boroleparth10@gmail.com",
+      "otp_hash": "$2b$08$32UqY5Cqg3ofIgg2a1ppUubFgvgrmb84tzOXJt9FRoLXiXhxXnrSG",
+      "expires_at": 1793424116258,
+      "attempts": 0,
+      "verified": true,
+      "purpose": "login",
+      "created_at": "2026-10-31T05:11:56.258Z"
+    },
+    {
+      "id": "otp_1793423924779_tzcl",
+      "email": "boroleparth10@gmail.com",
+      "otp_hash": "$2b$08$COws03G9O7xGWf8nkgMDm./AuL2yOJe4CJHOEJ1WFF0lRBR3HIeFW",
+      "expires_at": 1793424524779,
+      "attempts": 0,
+      "verified": true,
+      "purpose": "login",
+      "created_at": "2026-10-31T05:18:44.779Z"
+    },
+    {
+      "id": "otp_1793423979652_zjo3",
+      "email": "parthborole2006@gmail.com",
+      "otp_hash": "$2b$08$sDk1Ub3ZvuLLiKX8hO4zm.cgr945HxlhiYuY6oONSeljM6kYZmVAi",
+      "expires_at": 1793424579652,
+      "attempts": 0,
+      "verified": true,
+      "purpose": "login",
+      "created_at": "2026-10-31T05:19:39.652Z"
+    }
+  ],
+  "audit_logs": [
+    {
+      "id": "audit_1793424009492_nd9w",
+      "action": "SESSION_STOPPED",
+      "actor_id": "usr_1793420756017_88lb",
+      "actor_role": "faculty",
+      "target_id": "sess_1793420870113_57is",
+      "timestamp": "2026-10-31T05:20:09.492Z",
+      "severity": "info"
+    },
+    {
+      "id": "audit_1793423999853_wf9l",
+      "action": "ATTENDANCE_OVERRIDE",
+      "actor_id": "usr_1793420756017_88lb",
+      "actor_role": "faculty",
+      "target_id": "sess_1793420870113_57is",
+      "details": "{\"studentId\":\"std_1793420575321_zk2w\",\"status\":\"ABSENT\",\"reason\":\"Manual faculty attendance override from live console\"}",
+      "timestamp": "2026-10-31T05:19:59.853Z",
+      "severity": "info"
+    },
+    {
+      "id": "audit_1793423996734_gfgz",
+      "action": "ATTENDANCE_OVERRIDE",
+      "actor_id": "usr_1793420756017_88lb",
+      "actor_role": "faculty",
+      "target_id": "sess_1793420870113_57is",
+      "details": "{\"studentId\":\"std_1793420575321_zk2w\",\"status\":\"PRESENT\",\"reason\":\"Manual faculty attendance override from live console\"}",
+      "timestamp": "2026-10-31T05:19:56.734Z",
+      "severity": "info"
+    },
+    {
+      "id": "audit_1793421193358_04mn",
+      "action": "CLASSROOM_JOINED",
+      "actor_id": "usr_1793419395408_wwcz",
+      "actor_role": "student",
+      "target_id": "cr_1793420756021_u5a2",
+      "details": "{\"classroomName\":\"Parth*2006 — TYCS.A\",\"code\":\"123-56P9\"}",
+      "timestamp": "2026-10-31T04:33:13.358Z",
+      "severity": "info"
+    },
+    {
+      "id": "audit_1793421129865_ifc2",
+      "action": "USER_PASSWORD_RESET",
+      "actor_id": "usr_1793420756017_88lb",
+      "actor_role": "faculty",
+      "target_id": "usr_1793420756017_88lb",
+      "details": "{\"email\":\"parthborole2006@gmail.com\"}",
+      "timestamp": "2026-10-31T04:32:09.865Z",
+      "severity": "info"
+    },
+    {
+      "id": "audit_1793420912508_pj63",
+      "action": "USER_PASSWORD_RESET",
+      "actor_id": "usr_1793419395408_wwcz",
+      "actor_role": "student",
+      "target_id": "usr_1793419395408_wwcz",
+      "details": "{\"email\":\"boroleparth10@gmail.com\"}",
+      "timestamp": "2026-10-31T04:28:32.508Z",
+      "severity": "info"
+    },
+    {
+      "id": "audit_1793420870116_u0jw",
+      "action": "SESSION_STARTED",
+      "actor_id": "usr_1793420756017_88lb",
+      "actor_role": "faculty",
+      "target_id": "sess_1793420870113_57is",
+      "details": "{\"topic\":\"a\",\"lectureNumber\":1,\"radius\":10,\"mode\":\"SMART_GEOFENCE\"}",
+      "timestamp": "2026-10-31T04:27:50.116Z",
+      "severity": "info"
+    },
+    {
+      "id": "audit_1793420678030_puua",
+      "action": "USER_PASSWORD_RESET",
+      "actor_id": "usr_1793419395408_wwcz",
+      "actor_role": "student",
+      "target_id": "usr_1793419395408_wwcz",
+      "details": "{\"email\":\"boroleparth10@gmail.com\"}",
+      "timestamp": "2026-10-31T04:24:38.030Z",
+      "severity": "info"
+    },
+    {
+      "id": "log_01",
+      "actor_id": "usr_admin",
+      "actor_role": "admin",
+      "action": "SYSTEM_INITIALIZED",
+      "entity_type": "system",
+      "timestamp": "2026-10-31T04:01:01.529Z",
+      "details": "AttendSecure database initialized with exact faculty names and timetable",
+      "severity": "info"
+    }
+  ],
+  "institution_settings": {
+    "id": "inst_tsdc_01",
+    "college_name": "Thakur Shyamnarayan Degree College (TSDC), Kandivali (East)",
+    "official_latitude": 19.213805,
+    "official_longitude": 72.86481,
+    "default_radius": 50000,
+    "min_radius": 1,
+    "max_radius": 50000,
+    "low_attendance_threshold": 75,
+    "updated_at": "2026-10-31T04:01:00.866Z"
+  }
+}
