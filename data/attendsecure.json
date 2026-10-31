@@ -1,7 +1,6 @@
 {
   "users": [
     {
-<<<<<<< HEAD
       "id": "usr_admin",
       "name": "Admin",
       "email": "admin@tsdc.edu.in",
@@ -139,7 +138,7 @@
       "role": "student",
       "status": "active",
       "created_at": "2026-10-31T04:03:15.409Z",
-      "updated_at": "2026-10-31T05:19:00.012Z"
+      "updated_at": "2026-10-31T09:21:40.075Z"
     },
     {
       "id": "usr_1793419575190_mbr6",
@@ -169,7 +168,17 @@
       "role": "faculty",
       "status": "active",
       "created_at": "2026-10-31T04:25:56.017Z",
-      "updated_at": "2026-10-31T05:19:53.806Z"
+      "updated_at": "2026-10-31T09:18:07.862Z"
+    },
+    {
+      "id": "usr_1793438416547_0geg",
+      "name": "Vijay Sir",
+      "email": "jaydeepborgaonkar21@gmail.com",
+      "password_hash": "$2b$10$N7QufmtS9mB8f6OhepPMauXPVgfOsMlWAoxlaEkhc7FJGqrih7cxS",
+      "role": "faculty",
+      "status": "active",
+      "created_at": "2026-10-31T09:20:16.547Z",
+      "updated_at": "2026-10-31T09:20:40.006Z"
     }
   ],
   "students": [
@@ -298,21 +307,15 @@
       "department": "Computer Science",
       "employee_id": "123",
       "short_code": "123"
+    },
+    {
+      "id": "fac_1793438416550_i3zw",
+      "user_id": "usr_1793438416547_0geg",
+      "department": "Computer Science",
+      "employee_id": "1231",
+      "short_code": "1231"
     }
   ],
-=======
-      "id": "usr_master_admin",
-      "name": "Master Admin",
-      "email": "smartattendance13@gmail.com",
-      "password_hash": "$2b$10$a884odgTrhXo6PKB6e6P4uzyw.az5W0/3cm7JNI221hIHnC5Zbj22",
-      "role": "admin",
-      "status": "active",
-      "created_at": "2026-10-30T20:55:25.222Z"
-    }
-  ],
-  "students": [],
-  "faculty": [],
->>>>>>> origin/main
   "classes": [
     {
       "id": "cls_tycs_a",
@@ -337,7 +340,6 @@
       "division": "A",
       "academic_year": "2026-27",
       "is_active": true
-<<<<<<< HEAD
     },
     {
       "id": "cls_tyit_a",
@@ -346,8 +348,6 @@
       "division": "A",
       "academic_year": "2026-27",
       "is_active": true
-=======
->>>>>>> origin/main
     }
   ],
   "subjects": [
@@ -362,7 +362,6 @@
       "subject_name": "Software Testing & Quality Assurance",
       "subject_code": "CS-602",
       "class_id": "cls_tycs_a"
-<<<<<<< HEAD
     },
     {
       "id": "sub_eth",
@@ -416,6 +415,12 @@
       "id": "sub_1793420756020_08fa",
       "subject_name": "Parth*2006",
       "subject_code": "123-101",
+      "class_id": "cls_tycs_a"
+    },
+    {
+      "id": "sub_1793438416550_nmhr",
+      "subject_name": "AI",
+      "subject_code": "1231-101",
       "class_id": "cls_tycs_a"
     }
   ],
@@ -478,6 +483,12 @@
       "id": "fa_1793420756020",
       "faculty_id": "fac_1793420756019_96hh",
       "subject_id": "sub_1793420756020_08fa",
+      "class_id": "cls_tycs_a"
+    },
+    {
+      "id": "fa_1793438416551",
+      "faculty_id": "fac_1793438416550_i3zw",
+      "subject_id": "sub_1793438416550_nmhr",
       "class_id": "cls_tycs_a"
     }
   ],
@@ -927,6 +938,19 @@
       "academic_year": "2026-27",
       "status": "active",
       "created_at": "2026-10-31T04:25:56.021Z"
+    },
+    {
+      "id": "cr_1793438416551_gwi0",
+      "classroom_name": "AI — TYCS.A",
+      "name": "AI — TYCS.A",
+      "join_code": "123-X8Q9",
+      "subject_id": "sub_1793438416550_nmhr",
+      "class_id": "cls_tycs_a",
+      "division": "A",
+      "faculty_id": "fac_1793438416550_i3zw",
+      "academic_year": "2026-27",
+      "status": "active",
+      "created_at": "2026-10-31T09:20:16.551Z"
     }
   ],
   "classroom_members": [
@@ -1017,9 +1041,34 @@
       "joined_at": "2026-10-31T04:33:13.357Z",
       "status": "active",
       "created_at": "2026-10-31T04:33:13.357Z"
+    },
+    {
+      "id": "cm_1793438504125_7e3r",
+      "classroom_id": "cr_1793438416551_gwi0",
+      "student_id": "std_1793419395411_bdp2",
+      "joined_at": "2026-10-31T09:21:44.125Z",
+      "status": "active",
+      "created_at": "2026-10-31T09:21:44.125Z"
     }
   ],
   "attendance_sessions": [
+    {
+      "id": "sess_1793438455815_7dg9",
+      "class_id": "cls_tycs_a",
+      "subject_id": "sub_1793438416550_nmhr",
+      "faculty_id": "fac_1793438416550_i3zw",
+      "lecture_topic": "A* Algorithm",
+      "lecture_number": 1,
+      "session_date": "2026-10-31",
+      "start_time": "09:00 AM",
+      "radius_meters": 2,
+      "center_latitude": 19.213805,
+      "center_longitude": 72.86481,
+      "status": "ACTIVE",
+      "is_locked": false,
+      "attendance_mode": "SMART_GEOFENCE",
+      "created_at": "2026-10-31T09:20:55.815Z"
+    },
     {
       "id": "sess_1793420870113_57is",
       "class_id": "cls_tycs_a",
@@ -1316,9 +1365,79 @@
       "verified": true,
       "purpose": "login",
       "created_at": "2026-10-31T05:19:39.652Z"
+    },
+    {
+      "id": "otp_1793425021467_x1zg",
+      "email": "boroleparth10@gmail.com",
+      "otp_hash": "$2b$08$eoMnZB5fP5GkWcfHOQmJLeVTlp3rXyRFX7x6aUu/bTdsR1Slyw29i",
+      "expires_at": 1793425621467,
+      "attempts": 0,
+      "verified": true,
+      "purpose": "login",
+      "created_at": "2026-10-31T05:37:01.467Z"
+    },
+    {
+      "id": "otp_1793438185110_8n07",
+      "email": "boroleparth10@gmail.com",
+      "otp_hash": "$2b$08$Z1APEUm/AzXmtrwgXYGc4e8vgmaiaRJyp02NAsHQ3F9Rrqxw/rFxK",
+      "expires_at": 1793438785110,
+      "attempts": 0,
+      "verified": true,
+      "purpose": "login",
+      "created_at": "2026-10-31T09:16:25.110Z"
+    },
+    {
+      "id": "otp_1793438274382_2rgp",
+      "email": "parthborole2006@gmail.com",
+      "otp_hash": "$2b$08$FrdDFM4/p7zu3FRCTagHyOuI5.v3Ar61KtFQE2msy/tYt8Qq7rq56",
+      "expires_at": 1793438874382,
+      "attempts": 0,
+      "verified": true,
+      "purpose": "login",
+      "created_at": "2026-10-31T09:17:54.382Z"
+    },
+    {
+      "id": "otp_1793438416568_qkm6",
+      "email": "jaydeepborgaonkar21@gmail.com",
+      "otp_hash": "$2b$08$Nfa9g.tQmsiISCsTmadG0.LbXZTHfolTS0QABFvhhpGSOUvO90T8O",
+      "expires_at": 1793439016568,
+      "attempts": 0,
+      "verified": true,
+      "purpose": "registration",
+      "created_at": "2026-10-31T09:20:16.568Z"
+    },
+    {
+      "id": "otp_1793438487397_f9ow",
+      "email": "boroleparth10@gmail.com",
+      "otp_hash": "$2b$08$ZycfqAOFg9oXD3jE.MGe1uceHfv9HWqcOcS9MzUONTxIqom9rAaj6",
+      "expires_at": 1793439087397,
+      "attempts": 0,
+      "verified": true,
+      "purpose": "login",
+      "created_at": "2026-10-31T09:21:27.398Z"
     }
   ],
   "audit_logs": [
+    {
+      "id": "audit_1793438504127_s1cd",
+      "action": "CLASSROOM_JOINED",
+      "actor_id": "usr_1793419395408_wwcz",
+      "actor_role": "student",
+      "target_id": "cr_1793438416551_gwi0",
+      "details": "{\"classroomName\":\"AI — TYCS.A\",\"code\":\"123-X8Q9\"}",
+      "timestamp": "2026-10-31T09:21:44.127Z",
+      "severity": "info"
+    },
+    {
+      "id": "audit_1793438455817_6i30",
+      "action": "SESSION_STARTED",
+      "actor_id": "usr_1793438416547_0geg",
+      "actor_role": "faculty",
+      "target_id": "sess_1793438455815_7dg9",
+      "details": "{\"topic\":\"A* Algorithm\",\"lectureNumber\":1,\"radius\":2,\"mode\":\"SMART_GEOFENCE\"}",
+      "timestamp": "2026-10-31T09:20:55.817Z",
+      "severity": "info"
+    },
     {
       "id": "audit_1793424009492_nd9w",
       "action": "SESSION_STOPPED",
@@ -1419,27 +1538,5 @@
     "max_radius": 50000,
     "low_attendance_threshold": 75,
     "updated_at": "2026-10-31T04:01:00.866Z"
-=======
-    }
-  ],
-  "faculty_assignments": [],
-  "timetables": [],
-  "classrooms": [],
-  "classroom_members": [],
-  "attendance_sessions": [],
-  "attendance_records": [],
-  "otp_verifications": [],
-  "audit_logs": [],
-  "institution_settings": {
-    "id": "inst_tsdc_01",
-    "college_name": "Thakur Shyamnarayan Degree College (TSDC)",
-    "official_latitude": 19.213805,
-    "official_longitude": 72.86481,
-    "default_radius": 10,
-    "min_radius": 1,
-    "max_radius": 50,
-    "low_attendance_threshold": 75,
-    "updated_at": "2026-10-30T20:50:02.087Z"
->>>>>>> origin/main
   }
 }
